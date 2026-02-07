@@ -1109,6 +1109,9 @@
                 <button class="tab-button" onclick="showTab('macro')">
                     🌍 Macro & Tools
                 </button>
+                <button class="tab-button" onclick="showTab('macroInsight')">
+                    🧠 Makro insight
+                </button>
                 <button class="tab-button" onclick="showTab('backtest')">
                     🏛️ Backtest
                 </button>
@@ -1735,6 +1738,13 @@
                     Koristi <strong>sve indikatore</strong> iz osnovnog izračuna + trendove.
                     <strong>Čisto informativno</strong> — ne utječe na alokaciju.
                 </p>
+                <div style="background: var(--bg-elevated); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.35rem;">Kako čitati makro signal</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
+                        Growth score i Inflation score grade kvadrante (Reflation/Inflation/Deflation/Stagflation). 
+                        Trendovi iz povijesti (↑/↓/→) blago prilagođavaju score, pa smjer promjene može pomaknuti fazu i prioritetne signale.
+                    </div>
+                </div>
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
                     <div class="input-group" style="margin-bottom: 0;">
@@ -1975,6 +1985,13 @@
                     <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 1rem;">📈 Trend Summary (vs prethodni zapis)</div>
                     <div id="trendSummaryContent" style="color: var(--text-muted); font-size: 0.9rem;">
                         Spremi barem 2 zapisa da vidiš trendove.
+                    </div>
+                </div>
+
+                <div id="macroTrendImpact" style="background: var(--bg-elevated); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.75rem;">🧭 Utjecaj trenda na Dalio score</div>
+                    <div id="macroTrendImpactContent" style="color: var(--text-muted); font-size: 0.85rem;">
+                        Trend prilagodbe će se pojaviti nakon prvog spremljenog zapisa.
                     </div>
                 </div>
             </div>
@@ -2316,13 +2333,14 @@
                                 <th style="padding: 0.75rem; text-align: left; color: var(--text-muted); font-weight: 600;">Datum</th>
                                 <th style="padding: 0.75rem; text-align: center; color: var(--text-muted); font-weight: 600;">Score</th>
                                 <th style="padding: 0.75rem; text-align: center; color: var(--text-muted); font-weight: 600;">Δ</th>
+                                <th style="padding: 0.75rem; text-align: center; color: var(--text-muted); font-weight: 600;">Δ Makro</th>
                                 <th style="padding: 0.75rem; text-align: center; color: var(--text-muted); font-weight: 600;">Risky</th>
                                 <th style="padding: 0.75rem; text-align: center; color: var(--text-muted); font-weight: 600;">Režim</th>
                                 <th style="padding: 0.75rem; text-align: center; color: var(--text-muted); font-weight: 600;">Faza</th>
                             </tr>
                         </thead>
                         <tbody id="historyTableBody">
-                            <tr><td colspan="6" style="padding: 1.5rem; text-align: center; color: var(--text-muted);">Nema spremljenih zapisa</td></tr>
+                            <tr><td colspan="7" style="padding: 1.5rem; text-align: center; color: var(--text-muted);">Nema spremljenih zapisa</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -2361,6 +2379,44 @@
                         <button onclick="document.getElementById('importFile').click()" style="background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%;">
                             Odaberi datoteku
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Macro Insight Tab -->
+        <div class="tab-content" id="macroInsightTab">
+            <div class="guide-section">
+                <h3>🧠 Makro insight</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Sažetak kako su izračunati makro rezultati, kako trendovi utječu na bodove te praktične preporuke.
+                    Ovaj tab se ažurira na svakom izračunu.
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                    <div style="background: var(--bg-card); border-radius: 12px; padding: 1.25rem; border: 1px solid var(--border);">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Sažetak faze</div>
+                        <div id="macroInsightSummary" style="font-size: 0.95rem; color: var(--text-secondary);">Učitavanje...</div>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: 12px; padding: 1.25rem; border: 1px solid var(--border);">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Trend utjecaj</div>
+                        <div id="macroInsightTrend" style="font-size: 0.95rem; color: var(--text-secondary);">Učitavanje...</div>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: 12px; padding: 1.25rem; border: 1px solid var(--border);">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Preporuke</div>
+                        <div id="macroInsightRecommendations" style="font-size: 0.95rem; color: var(--text-secondary);">Učitavanje...</div>
+                    </div>
+                </div>
+
+                <div style="background: var(--bg-elevated); border-radius: 12px; padding: 1.25rem; border: 1px solid var(--border);">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Kako računamo</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        <ul style="padding-left: 1.1rem;">
+                            <li>Growth score zbraja GDP, PMI, nezaposlenost, yield krivulju i kreditne spreadove.</li>
+                            <li>Inflation score koristi CPI, Leading Inflation, PMI i consumer confidence.</li>
+                            <li>Trendovi (↑/↓/→) iz povijesti blago pomiču scoreove kako bi se smjer promjene vidio u fazi.</li>
+                            <li>Sector rotation koristi YTD/3M/1Y vodeće sektore, a Stovall tablica služi kao dodatna potvrda.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -3918,6 +3974,27 @@
             const consumerConf = parseFloat(inputs.consumerConfidence?.value) || 100;
             const history = getHistory();
             const prevSnapshot = history.length > 0 ? history[history.length - 1] : null;
+            const prevInputs = prevSnapshot?.inputs || {};
+
+            const getTrendDirection = (current, previous, threshold, inverted = false) => {
+                const prevVal = parseFloat(previous);
+                if (Number.isNaN(prevVal)) return 'flat';
+                const delta = current - prevVal;
+                if (Math.abs(delta) < threshold) return 'flat';
+                if (inverted) return delta > 0 ? 'down' : 'up';
+                return delta > 0 ? 'up' : 'down';
+            };
+
+            const trendState = {
+                gdp: getTrendDirection(gdpGrowth, prevInputs.gdpGrowth, 0.2),
+                pmi: getTrendDirection(pmi, prevInputs.pmiManufacturing, 0.5),
+                unemployment: getTrendDirection(values.unemployment, prevInputs.unemployment, 0.1, true),
+                yieldCurve: getTrendDirection(values.yieldCurve, prevInputs.yieldCurve, 0.1),
+                credit: getTrendDirection(values.creditHY, prevInputs.creditHY, 10, true),
+                consumer: getTrendDirection(consumerConf, prevInputs.consumerConfidence, 3),
+                cpi: getTrendDirection(values.cpiYoY, prevInputs.cpiYoY, 0.1, true),
+                leadingInfl: getTrendDirection(values.leadingInflation, prevInputs.leadingInflation, 0.1, true)
+            };
             
             // ==========================================
             // GROWTH SCORE (0-100) - Dalio: "Is the economy growing?"
@@ -3960,6 +4037,21 @@
             else if (values.creditHY <= 500) growthScore += 6;
             else if (values.creditHY <= 600) growthScore += 2;
             else growthScore += 0;
+
+            // Trend adjustments (small nudges to reflect momentum)
+            let growthTrendAdj = 0;
+            if (trendState.gdp === 'up') growthTrendAdj += 2;
+            if (trendState.gdp === 'down') growthTrendAdj -= 2;
+            if (trendState.pmi === 'up') growthTrendAdj += 2;
+            if (trendState.pmi === 'down') growthTrendAdj -= 2;
+            if (trendState.unemployment === 'up') growthTrendAdj += 2;
+            if (trendState.unemployment === 'down') growthTrendAdj -= 2;
+            if (trendState.yieldCurve === 'up') growthTrendAdj += 1;
+            if (trendState.yieldCurve === 'down') growthTrendAdj -= 1;
+            if (trendState.credit === 'up') growthTrendAdj += 2;
+            if (trendState.credit === 'down') growthTrendAdj -= 2;
+            if (trendState.consumer === 'up') growthTrendAdj += 1;
+            if (trendState.consumer === 'down') growthTrendAdj -= 1;
             
             // ==========================================
             // INFLATION SCORE (0-100) - Dalio: "Is inflation rising?"
@@ -3997,6 +4089,19 @@
             else if (pmi >= 55) inflationScore += 10;
             else if (pmi >= 52) inflationScore += 5;
             else inflationScore += 0;
+
+            let inflationTrendAdj = 0;
+            if (trendState.cpi === 'up') inflationTrendAdj += 2;
+            if (trendState.cpi === 'down') inflationTrendAdj -= 2;
+            if (trendState.leadingInfl === 'up') inflationTrendAdj += 2;
+            if (trendState.leadingInfl === 'down') inflationTrendAdj -= 2;
+            if (trendState.consumer === 'up') inflationTrendAdj += 1;
+            if (trendState.consumer === 'down') inflationTrendAdj -= 1;
+            if (trendState.pmi === 'up') inflationTrendAdj += 1;
+            if (trendState.pmi === 'down') inflationTrendAdj -= 1;
+
+            growthScore = Math.max(0, Math.min(100, growthScore + growthTrendAdj));
+            inflationScore = Math.max(0, Math.min(100, inflationScore + inflationTrendAdj));
             
             // Determine quadrant probabilities
             const growthHigh = growthScore >= 50;
@@ -4064,6 +4169,28 @@
                     }
                 }
             });
+
+            const trendImpactEl = document.getElementById('macroTrendImpactContent');
+            if (trendImpactEl) {
+                if (!prevSnapshot) {
+                    trendImpactEl.textContent = 'Trend prilagodbe će se pojaviti nakon prvog spremljenog zapisa.';
+                } else {
+                    const fmt = (label, val) => {
+                        const color = val > 0 ? 'var(--accent-bull)' : val < 0 ? 'var(--accent-bear)' : 'var(--text-muted)';
+                        const sign = val > 0 ? '+' : '';
+                        return `<span style="color: ${color};">${label} ${sign}${val}</span>`;
+                    };
+                    trendImpactEl.innerHTML = `${fmt('Growth adj', growthTrendAdj)} · ${fmt('Inflation adj', inflationTrendAdj)} <span style="color: var(--text-muted);">(trend nudge)</span>`;
+                }
+            }
+
+            lastDalioTrendState = {
+                growthScore,
+                inflationScore,
+                growthTrendAdj,
+                inflationTrendAdj,
+                trendState
+            };
             
             // Determine cycle phase based on multiple indicators
             let cyclePhase, cycleDesc, needleAngle;
@@ -4121,6 +4248,60 @@
             
             // Update Sector Rotation cross-reference (independent, informational only)
             updateSectorRotation();
+
+            updateMacroInsight({
+                cyclePhase,
+                cycleDesc,
+                dominantQuadrant: dominant.id,
+                dominantQuadrantLabel: dominant.id.replace('quadrant', ''),
+                growthScore,
+                inflationScore,
+                growthTrendAdj,
+                inflationTrendAdj,
+                trendState
+            });
+        }
+
+        function updateMacroInsight(payload) {
+            const summaryEl = document.getElementById('macroInsightSummary');
+            const trendEl = document.getElementById('macroInsightTrend');
+            const recEl = document.getElementById('macroInsightRecommendations');
+            if (!summaryEl || !trendEl || !recEl) return;
+
+            const quadrantLabelMap = {
+                quadrantReflation: 'Reflation',
+                quadrantInflation: 'Inflation',
+                quadrantDeflation: 'Deflation',
+                quadrantStagflation: 'Stagflation'
+            };
+            const quadrantLabel = quadrantLabelMap[payload.dominantQuadrant] || '—';
+
+            summaryEl.innerHTML = `
+                <strong>${quadrantLabel}</strong> · ${payload.cyclePhase}<br>
+                Growth ${payload.growthScore.toFixed(0)} / Inflation ${payload.inflationScore.toFixed(0)}
+            `;
+
+            const fmt = (label, val) => {
+                const color = val > 0 ? 'var(--accent-bull)' : val < 0 ? 'var(--accent-bear)' : 'var(--text-muted)';
+                const sign = val > 0 ? '+' : '';
+                return `<span style="color: ${color};">${label} ${sign}${val}</span>`;
+            };
+            trendEl.innerHTML = `
+                ${fmt('Growth adj', payload.growthTrendAdj)} · ${fmt('Inflation adj', payload.inflationTrendAdj)}<br>
+                <span style="color: var(--text-muted); font-size: 0.8rem;">Trendovi: GDP ${payload.trendState.gdp}, PMI ${payload.trendState.pmi}, CPI ${payload.trendState.cpi}</span>
+            `;
+
+            let recommendation = '';
+            if (payload.dominantQuadrant === 'quadrantReflation') {
+                recommendation = 'Fokus na rizičniju imovinu, rast je zdrav, inflacija još kontrolirana.';
+            } else if (payload.dominantQuadrant === 'quadrantInflation') {
+                recommendation = 'Pazi na inflaciju: hedge kroz realna dobra i kraći duration.';
+            } else if (payload.dominantQuadrant === 'quadrantDeflation') {
+                recommendation = 'Defanzivniji pristup: kvalitetne obveznice i cash imaju veću ulogu.';
+            } else {
+                recommendation = 'Stagflacija traži balans: realni asseti + oprez s rizičnim sektorima.';
+            }
+            recEl.textContent = recommendation;
         }
         
         function updateIndicatorDashboard(values, prevSnapshot) {
@@ -4373,6 +4554,7 @@
         };
         const LATEST_SNAPSHOT_KEY = 'portfolioAllocatorLatestSnapshot';
         let lastSectorRotationState = null;
+        let lastDalioTrendState = null;
 
         function initSectorRotation() {
             function setupSectorGroup(selector, countId) {
@@ -5283,6 +5465,15 @@
                 };
             }
 
+            if (lastDalioTrendState) {
+                snapshot.results.dalioTrend = {
+                    growthScore: lastDalioTrendState.growthScore,
+                    inflationScore: lastDalioTrendState.inflationScore,
+                    growthTrendAdj: lastDalioTrendState.growthTrendAdj,
+                    inflationTrendAdj: lastDalioTrendState.inflationTrendAdj
+                };
+            }
+
             return snapshot;
         }
 
@@ -5326,7 +5517,7 @@
             
             if (!history.length) {
                 if (chartEl) chartEl.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">Nema spremljenih podataka. Klikni "Spremi trenutno stanje".</div>';
-                if (tableBodyEl) tableBodyEl.innerHTML = '<tr><td colspan="6" style="padding: 1.5rem; text-align: center; color: var(--text-muted);">Nema spremljenih zapisa</td></tr>';
+                if (tableBodyEl) tableBodyEl.innerHTML = '<tr><td colspan="7" style="padding: 1.5rem; text-align: center; color: var(--text-muted);">Nema spremljenih zapisa</td></tr>';
                 return;
             }
             
@@ -5364,11 +5555,41 @@
                             deltaStr = `<span style="color: ${deltaColor};">${delta > 0 ? '+' : ''}${(delta * 100).toFixed(1)}%</span>`;
                         }
                     }
+
+                    const formatDelta = (label, current, previous, unit = '', invert = false) => {
+                        if (previous === undefined || previous === null) return null;
+                        const prevVal = parseFloat(previous);
+                        const curVal = parseFloat(current);
+                        if (Number.isNaN(prevVal) || Number.isNaN(curVal)) return null;
+                        const diff = curVal - prevVal;
+                        if (Math.abs(diff) < 0.05) return null;
+                        const dir = diff > 0 ? '↑' : '↓';
+                        const good = invert ? diff < 0 : diff > 0;
+                        const color = good ? 'var(--accent-bull)' : 'var(--accent-bear)';
+                        return `<span style="color: ${color};">${label}${dir}${Math.abs(diff).toFixed(1)}${unit}</span>`;
+                    };
+
+                    let macroDeltaStr = '<span style="color: var(--text-muted);">—</span>';
+                    if (idx < arr.length - 1) {
+                        const prevInputs = arr[idx + 1].inputs || {};
+                        const deltas = [
+                            formatDelta('GDP', entry.inputs?.gdpGrowth, prevInputs.gdpGrowth, '%'),
+                            formatDelta('PMI', entry.inputs?.pmiManufacturing, prevInputs.pmiManufacturing, ''),
+                            formatDelta('Conf', entry.inputs?.consumerConfidence, prevInputs.consumerConfidence, ''),
+                            formatDelta('CPI', entry.inputs?.cpiYoY, prevInputs.cpiYoY, '%', true),
+                            formatDelta('YC', entry.inputs?.yieldCurve, prevInputs.yieldCurve, '%'),
+                            formatDelta('Credit', entry.inputs?.creditHY, prevInputs.creditHY, 'bp', true)
+                        ].filter(Boolean);
+                        if (deltas.length) {
+                            macroDeltaStr = `<div style="display: flex; flex-direction: column; gap: 2px; font-size: 0.7rem;">${deltas.slice(0, 3).join(' ')}${deltas.length > 3 ? '<br>' + deltas.slice(3).join(' ') : ''}</div>`;
+                        }
+                    }
                     
                     return `<tr>
                         <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); font-size: 0.85rem;">${entry.date}</td>
                         <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: center; font-family: 'JetBrains Mono', monospace; color: ${scoreColor}; font-weight: 600;">${score.toFixed(3)}</td>
                         <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: center; font-size: 0.8rem;">${deltaStr}</td>
+                        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: center;">${macroDeltaStr}</td>
                         <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: center; color: var(--accent-bull);">${entry.results.riskyAllocation}</td>
                         <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: center; font-size: 0.8rem;">${entry.results.regime || '-'}</td>
                         <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: center; font-size: 0.75rem; color: var(--text-muted);">${entry.results.cyclePhase || '-'}</td>
