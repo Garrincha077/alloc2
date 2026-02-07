@@ -1986,7 +1986,7 @@
                 <h3>🔄 Sector Rotation Model <span style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); vertical-align: middle;">— Stovall / S&P</span></h3>
                 <p style="color: var(--text-secondary); margin-bottom: 0.75rem;">
                     Sam Stovall's sector rotation: odaberi <strong>3 vodeća sektora</strong> po YTD, 3M i 1Y prinosu.
-                    Model procjenjuje fazu tržišnog i ekonomskog ciklusa uz uvažavanje rotacije kroz vrijeme.
+                    Model procjenjuje fazu tržišnog i ekonomskog ciklusa uz uvažavanje rotacije kroz vrijeme, a trendovi se uspoređuju sa zadnjim spremljenim mjerenjem.
                     <strong>Potpuno odvojeno</strong> od primarne kalkulacije — služi kao nezavisna potvrda ili kontradikcija Dalio analize.
                 </p>
                 <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.15); border-radius: 8px; margin-bottom: 1.5rem;">
@@ -2054,6 +2054,7 @@
 
                 <div id="sectorTrendCard" style="background: var(--bg-elevated); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
                     <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.5rem;">📈 Trend rotacije sektora</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.35rem;">Uspoređuje dominantnu fazu s prethodnim mjerenjem.</div>
                     <div id="sectorTrendContent" style="font-size: 0.85rem; color: var(--text-secondary);">Spremi barem 2 zapisa da vidiš smjer rotacije.</div>
                 </div>
 
@@ -2178,7 +2179,10 @@
                         <span>📋 Stovall makro karakteristike — live</span>
                         <span id="refTablePhaseLabel" style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--text-muted);">—</span>
                     </div>
-                    <div style="padding: 0 1rem 1rem; overflow-x: auto;">
+                        <div style="padding: 0 1rem 1rem; overflow-x: auto;">
+                            <div style="font-size: 0.7rem; color: var(--text-muted); margin: 0.5rem 0 0.25rem;">
+                                Razina + trend (↑/↓/→) određuju fazu po redovima, a dominantna faza se highlighta.
+                            </div>
                         <table id="stovallRefTable" style="width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 0.5rem;">
                             <thead>
                                 <tr style="border-bottom: 1px solid var(--border);">
@@ -2286,6 +2290,7 @@
                 <h3>📊 Povijest Alokacija</h3>
                 <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
                     Automatsko praćenje svih inputa i rezultata. Sprema <strong>sve indikatore</strong> za trend analizu.
+                    Svaki izračun ažurira zadnje mjerenje, a ručni "Spremi trenutno stanje" dodaje zapis u povijest.
                 </p>
 
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
@@ -3899,6 +3904,9 @@
             
             // Update Dalio Cycle Analysis
             updateDalioCycleAnalysis(values, composite);
+            
+            // Auto-save latest measurement across tabs
+            saveLatestSnapshot();
         }
 
         // =====================================================
@@ -4363,6 +4371,8 @@
             '3m': 'sectorRotationSelections3m',
             '1y': 'sectorRotationSelections1y'
         };
+        const LATEST_SNAPSHOT_KEY = 'portfolioAllocatorLatestSnapshot';
+        let lastSectorRotationState = null;
 
         function initSectorRotation() {
             function setupSectorGroup(selector, countId) {
@@ -4729,6 +4739,11 @@
             
             const dominantPhase = phases.reduce((a, b) => blendedVotes[a] > blendedVotes[b] ? a : b);
             const dominantInfo = PHASE_DALIO_MAP[dominantPhase];
+            lastSectorRotationState = {
+                dominantPhase,
+                blendedVotes,
+                sectorCombinedPct
+            };
             
             // ── UPDATE PROBABILITY BARS ──
             phases.forEach(p => {
@@ -5209,29 +5224,25 @@
                 return [];
             }
         }
-        
-        function saveCurrentSnapshot() {
-            const history = getHistory();
-            
-            // Gather current state
+
+        function buildSnapshot() {
             const snapshot = {
                 timestamp: new Date().toISOString(),
                 date: new Date().toLocaleDateString('hr-HR'),
                 inputs: {},
                 results: {}
             };
-            
-            // Save all input values
+
             Object.entries(inputs).forEach(([key, el]) => {
                 if (el && el.value !== undefined) {
                     snapshot.inputs[key] = el.value;
                 }
             });
-            
-            // Save results
+
             snapshot.results.compositeScore = displays.compositeScore?.textContent || '0';
             snapshot.results.riskyAllocation = displays.riskyAllocation?.textContent || '0%';
             snapshot.results.safeAllocation = displays.safeAllocation?.textContent || '0%';
+
             const userAge = parseInt(inputs.userAge?.value) || 40;
             const riskTolerance = inputs.riskTolerance?.value || 'medium';
             const customBaseRisky = parseFloat(inputs.customBaseRisky?.value) || 55;
@@ -5247,22 +5258,46 @@
                 minRisky: limits.minRisky,
                 maxRisky: limits.maxRisky
             };
-            
-            // Determine regime and phase
+
             const gdp = parseFloat(inputs.gdpGrowth?.value) || 2.5;
             const cpi = parseFloat(inputs.cpiYoY?.value) || 2.7;
             if (gdp >= 2 && cpi < 2.5) snapshot.results.regime = 'Reflation';
             else if (gdp >= 2 && cpi >= 2.5) snapshot.results.regime = 'Inflation';
             else if (gdp < 2 && cpi < 2.5) snapshot.results.regime = 'Deflation';
             else snapshot.results.regime = 'Stagflation';
-            
+
             snapshot.results.cyclePhase = document.getElementById('cyclePhaseDisplay')?.textContent || 'N/A';
-            
-            // Save sector rotation selections
+            snapshot.results.dalioQuadrant = document.getElementById('cycleDalioQuad')?.textContent || '—';
+            snapshot.results.stovallPhase = document.getElementById('cycleStovallPhase')?.textContent || '—';
+            snapshot.results.marketPhase = document.getElementById('cycleMarketPhase')?.textContent || '—';
+
             snapshot.results.leadingSectorsYtd = Array.from(document.querySelectorAll('.sector-cb-ytd:checked')).map(cb => cb.value);
             snapshot.results.leadingSectors3m = Array.from(document.querySelectorAll('.sector-cb-3m:checked')).map(cb => cb.value);
             snapshot.results.leadingSectors1y = Array.from(document.querySelectorAll('.sector-cb-1y:checked')).map(cb => cb.value);
             snapshot.results.leadingSectors = snapshot.results.leadingSectorsYtd;
+
+            if (lastSectorRotationState) {
+                snapshot.results.stovallBlend = {
+                    dominantPhase: lastSectorRotationState.dominantPhase,
+                    blendedVotes: lastSectorRotationState.blendedVotes
+                };
+            }
+
+            return snapshot;
+        }
+
+        function saveLatestSnapshot() {
+            const snapshot = buildSnapshot();
+            snapshot.results.auto = true;
+            localStorage.setItem(LATEST_SNAPSHOT_KEY, JSON.stringify(snapshot));
+        }
+        
+        function saveCurrentSnapshot() {
+            const history = getHistory();
+            
+            // Gather current state
+            const snapshot = buildSnapshot();
+            snapshot.results.auto = false;
             
             history.push(snapshot);
             
