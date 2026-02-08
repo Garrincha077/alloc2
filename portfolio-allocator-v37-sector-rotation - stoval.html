@@ -1034,52 +1034,133 @@
             animation: shimmer 1.5s ease-in-out;
         }
         /* Sector Rotation Chips */
-        .sector-chip {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
-        .sector-chip input[type="checkbox"] {
-            display: none;
-        }
-        .sector-chip-inner {
-            display: block;
-            width: 100%;
-            padding: 0.55rem 0.75rem;
-            background: var(--bg-card);
-            border: 1.5px solid var(--border);
-            border-radius: 10px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-align: center;
-            transition: all 0.25s ease;
-            font-weight: 500;
-        }
-        .sector-chip:hover .sector-chip-inner {
-            border-color: var(--border-hover);
-            background: var(--bg-elevated);
-        }
-        .sector-chip input:checked + .sector-chip-inner {
-            border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.12);
-            color: var(--accent-blue);
-            font-weight: 700;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
-        }
-        .sector-chip input:disabled + .sector-chip-inner {
-            opacity: 0.35;
-            cursor: not-allowed;
-        }
-        .sector-chip input:disabled:not(:checked) + .sector-chip-inner {
-            pointer-events: none;
-        }
+        /* (legacy .sector-chip removed — replaced by .stovall-sector-chip) */
         .rotation-phase-row.active-phase {
             background: rgba(255,255,255, 0.03);
             border-radius: 8px;
             padding: 0.5rem 0.75rem;
             margin-left: -0.75rem;
             margin-right: -0.75rem;
+        }
+
+        /* Stovall manual table cells */
+        .stovall-cell {
+            padding: 0.6rem;
+            text-align: center;
+            color: var(--text-muted);
+            border-radius: 6px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+        .stovall-cell:hover {
+            background: rgba(148, 163, 184, 0.08);
+            color: var(--text-secondary);
+        }
+        .stovall-cell.selected {
+            font-weight: 700;
+            box-shadow: inset 0 0 0 1.5px currentColor;
+        }
+        .stovall-cell.selected[data-phase="FR"] {
+            background: color-mix(in srgb, var(--accent-bull) 15%, transparent);
+            color: var(--accent-bull);
+        }
+        .stovall-cell.selected[data-phase="ER"] {
+            background: color-mix(in srgb, var(--accent-neutral) 15%, transparent);
+            color: var(--accent-neutral);
+        }
+        .stovall-cell.selected[data-phase="FRec"] {
+            background: color-mix(in srgb, var(--accent-bear) 15%, transparent);
+            color: var(--accent-bear);
+        }
+        .stovall-cell.selected[data-phase="ERec"] {
+            background: color-mix(in srgb, var(--accent-blue) 15%, transparent);
+            color: var(--accent-blue);
+        }
+
+        /* Sector chips in Stovall table */
+        .stovall-sector-chip {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            margin: 2px;
+        }
+        .stovall-sector-chip input[type="checkbox"] { display: none; }
+        .stovall-sector-chip-inner {
+            display: block;
+            padding: 0.3rem 0.55rem;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-align: center;
+            transition: all 0.25s ease;
+            font-weight: 500;
+        }
+        .stovall-sector-chip:hover .stovall-sector-chip-inner {
+            border-color: var(--border-hover);
+            background: var(--bg-elevated);
+        }
+        .stovall-sector-chip input:checked + .stovall-sector-chip-inner {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        /* Rotation trail */
+        .rotation-trail {
+            display: flex;
+            gap: 0;
+            align-items: stretch;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+        .trail-entry {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+            padding: 0.5rem 0.4rem;
+            position: relative;
+            transition: opacity 0.3s;
+        }
+        .trail-entry::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-left: 6px solid var(--text-muted);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+            opacity: 0.3;
+        }
+        .trail-entry:last-child::after { display: none; }
+        .trail-phase-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-bottom: 0.35rem;
+            flex-shrink: 0;
+        }
+        .trail-sectors {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.3;
+            max-width: 75px;
+            word-break: break-word;
+        }
+        .trail-date {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 0.2rem;
         }
 
         @media (max-width: 768px) {
@@ -1985,31 +2066,12 @@
             <div class="guide-section" style="margin-top: 2rem;">
                 <h3>🔄 Sector Rotation Model <span style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); vertical-align: middle;">— Stovall / S&P</span></h3>
                 <p style="color: var(--text-secondary); margin-bottom: 0.75rem;">
-                    Sam Stovall's sector rotation: odaberi <strong>3 vodeća sektora YTD</strong> i model procjenjuje fazu tržišnog i ekonomskog ciklusa.
-                    <strong>Potpuno odvojeno</strong> od primarne kalkulacije — služi kao nezavisna potvrda ili kontradikcija Dalio analize.
+                    Sam Stovall's sector rotation model: <strong>ručno procijeni</strong> u kojoj fazi se nalazi svaki makro indikator i odaberi vodeće sektore.
+                    Rezultat: <strong>50% automatski indikatori + 50% tvoja Stovall procjena</strong>. Potpuno odvojeno od primarne kalkulacije.
                 </p>
                 <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.15); border-radius: 8px; margin-bottom: 1.5rem;">
                     <span style="font-size: 1rem;">ℹ️</span>
                     <span style="font-size: 0.8rem; color: var(--accent-blue);">Izvor podataka: <a href="https://stockcharts.com/freecharts/perf.php?[SECT]" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">StockCharts Sector Performance</a> · <a href="https://www.sectorspdr.com/sectorspdr/" target="_blank" style="color: var(--accent-blue); text-decoration: underline;">SPDR Sector ETFs</a></span>
-                </div>
-
-                <!-- Sector Selection Grid -->
-                <div style="margin-bottom: 1.5rem;">
-                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.75rem;">Odaberi 3 vodeća sektora po YTD prinosu</div>
-                    <div id="sectorGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem;">
-                        <label class="sector-chip" data-sector="technology"><input type="checkbox" class="sector-cb" value="technology"><span class="sector-chip-inner">💻 Technology</span></label>
-                        <label class="sector-chip" data-sector="discretionary"><input type="checkbox" class="sector-cb" value="discretionary"><span class="sector-chip-inner">🛍️ Discretionary</span></label>
-                        <label class="sector-chip" data-sector="comm_services"><input type="checkbox" class="sector-cb" value="comm_services"><span class="sector-chip-inner">📡 Comm. Services</span></label>
-                        <label class="sector-chip" data-sector="industrials"><input type="checkbox" class="sector-cb" value="industrials"><span class="sector-chip-inner">🏭 Industrials</span></label>
-                        <label class="sector-chip" data-sector="materials"><input type="checkbox" class="sector-cb" value="materials"><span class="sector-chip-inner">⛏️ Materials</span></label>
-                        <label class="sector-chip" data-sector="energy"><input type="checkbox" class="sector-cb" value="energy"><span class="sector-chip-inner">⚡ Energy</span></label>
-                        <label class="sector-chip" data-sector="health_care"><input type="checkbox" class="sector-cb" value="health_care"><span class="sector-chip-inner">🏥 Health Care</span></label>
-                        <label class="sector-chip" data-sector="financials"><input type="checkbox" class="sector-cb" value="financials"><span class="sector-chip-inner">🏦 Financials</span></label>
-                        <label class="sector-chip" data-sector="cons_staples"><input type="checkbox" class="sector-cb" value="cons_staples"><span class="sector-chip-inner">🧴 Cons. Staples</span></label>
-                        <label class="sector-chip" data-sector="utilities"><input type="checkbox" class="sector-cb" value="utilities"><span class="sector-chip-inner">💡 Utilities</span></label>
-                        <label class="sector-chip" data-sector="real_estate"><input type="checkbox" class="sector-cb" value="real_estate"><span class="sector-chip-inner">🏠 Real Estate</span></label>
-                    </div>
-                    <div id="sectorSelectionCount" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">Odabrano: 0/3</div>
                 </div>
 
                 <!-- Rotation Cycle Wheel + Results Side by Side -->
@@ -2127,11 +2189,11 @@
                     <span style="color: var(--text-muted); font-size: 0.85rem;">Učitavanje...</span>
                 </div>
 
-                <!-- Stovall Reference Table (now interactive with indicator states) -->
+                <!-- Stovall Manual Table — user clicks cells to select phase per row -->
                 <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1rem; overflow: hidden;">
                     <div style="padding: 1rem 1.5rem; font-weight: 600; font-size: 0.9rem; color: var(--text-secondary); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                        <span>📋 Stovall makro karakteristike — live</span>
-                        <span id="refTablePhaseLabel" style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--text-muted);">—</span>
+                        <span>📋 Stovall tablica — ručni unos</span>
+                        <span id="refTablePhaseLabel" style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--text-muted);">Klikni na ćeliju za odabir faze</span>
                     </div>
                     <div style="padding: 0 1rem 1rem; overflow-x: auto;">
                         <table id="stovallRefTable" style="width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 0.5rem;">
@@ -2146,85 +2208,67 @@
                             </thead>
                             <tbody>
                                 <tr id="refRow_consumerExp" style="border-bottom: 1px solid var(--border);">
-                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">
-                                        Potrošačka očekivanja
-                                        <div id="refCurrent_consumerExp" style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); margin-top: 2px;">—</div>
-                                    </td>
-                                    <td id="refCell_consumerExp_FR" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Oporavljaju se</td>
-                                    <td id="refCell_consumerExp_ER" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Rastu</td>
-                                    <td id="refCell_consumerExp_FRec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Padaju</td>
-                                    <td id="refCell_consumerExp_ERec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Naglo padaju</td>
+                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">Potrošačka očekivanja</td>
+                                    <td class="stovall-cell" data-row="consumerExp" data-phase="FR">Oporavljaju se</td>
+                                    <td class="stovall-cell" data-row="consumerExp" data-phase="ER">Rastu</td>
+                                    <td class="stovall-cell" data-row="consumerExp" data-phase="FRec">Padaju</td>
+                                    <td class="stovall-cell" data-row="consumerExp" data-phase="ERec">Naglo padaju</td>
                                 </tr>
                                 <tr id="refRow_indProduction" style="border-bottom: 1px solid var(--border);">
-                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">
-                                        Industrijska proizvodnja
-                                        <div id="refCurrent_indProduction" style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); margin-top: 2px;">—</div>
-                                    </td>
-                                    <td id="refCell_indProduction_FR" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Dno</td>
-                                    <td id="refCell_indProduction_ER" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Raste</td>
-                                    <td id="refCell_indProduction_FRec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Ravna</td>
-                                    <td id="refCell_indProduction_ERec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Pada</td>
+                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">Industrijska proizvodnja</td>
+                                    <td class="stovall-cell" data-row="indProduction" data-phase="FR">Dno</td>
+                                    <td class="stovall-cell" data-row="indProduction" data-phase="ER">Raste</td>
+                                    <td class="stovall-cell" data-row="indProduction" data-phase="FRec">Ravna</td>
+                                    <td class="stovall-cell" data-row="indProduction" data-phase="ERec">Pada</td>
                                 </tr>
                                 <tr id="refRow_interestRates" style="border-bottom: 1px solid var(--border);">
-                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">
-                                        Kamatne stope
-                                        <div id="refCurrent_interestRates" style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); margin-top: 2px;">—</div>
-                                    </td>
-                                    <td id="refCell_interestRates_FR" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Padaju</td>
-                                    <td id="refCell_interestRates_ER" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Dno</td>
-                                    <td id="refCell_interestRates_FRec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Brzo rastu (Fed)</td>
-                                    <td id="refCell_interestRates_ERec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Vrhunac</td>
+                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">Kamatne stope</td>
+                                    <td class="stovall-cell" data-row="interestRates" data-phase="FR">Padaju</td>
+                                    <td class="stovall-cell" data-row="interestRates" data-phase="ER">Dno</td>
+                                    <td class="stovall-cell" data-row="interestRates" data-phase="FRec">Brzo rastu (Fed)</td>
+                                    <td class="stovall-cell" data-row="interestRates" data-phase="ERec">Vrhunac</td>
                                 </tr>
                                 <tr id="refRow_yieldCurve" style="border-bottom: 1px solid var(--border);">
-                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">
-                                        Yield krivulja
-                                        <div id="refCurrent_yieldCurve" style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); margin-top: 2px;">—</div>
-                                    </td>
-                                    <td id="refCell_yieldCurve_FR" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Normalna</td>
-                                    <td id="refCell_yieldCurve_ER" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Strma</td>
-                                    <td id="refCell_yieldCurve_FRec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Izravnava se</td>
-                                    <td id="refCell_yieldCurve_ERec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Ravna/Invertirana</td>
+                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">Yield krivulja</td>
+                                    <td class="stovall-cell" data-row="yieldCurve" data-phase="FR">Normalna</td>
+                                    <td class="stovall-cell" data-row="yieldCurve" data-phase="ER">Strma</td>
+                                    <td class="stovall-cell" data-row="yieldCurve" data-phase="FRec">Izravnava se</td>
+                                    <td class="stovall-cell" data-row="yieldCurve" data-phase="ERec">Ravna/Invertirana</td>
                                 </tr>
                                 <tr id="refRow_inflation" style="border-bottom: 1px solid var(--border);">
-                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">
-                                        Inflacija (CPI + Leading)
-                                        <div id="refCurrent_inflation" style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); margin-top: 2px;">—</div>
-                                    </td>
-                                    <td id="refCell_inflation_FR" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Pada / Niska</td>
-                                    <td id="refCell_inflation_ER" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Niska / Stabilna</td>
-                                    <td id="refCell_inflation_FRec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Raste / Visoka</td>
-                                    <td id="refCell_inflation_ERec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Vrh / Stagflacija</td>
+                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">Inflacija (CPI + Leading)</td>
+                                    <td class="stovall-cell" data-row="inflation" data-phase="FR">Pada / Niska</td>
+                                    <td class="stovall-cell" data-row="inflation" data-phase="ER">Niska / Stabilna</td>
+                                    <td class="stovall-cell" data-row="inflation" data-phase="FRec">Raste / Visoka</td>
+                                    <td class="stovall-cell" data-row="inflation" data-phase="ERec">Vrh / Stagflacija</td>
                                 </tr>
                                 <tr id="refRow_creditSpreads" style="border-bottom: 1px solid var(--border);">
-                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">
-                                        Credit spreads (HY)
-                                        <div id="refCurrent_creditSpreads" style="font-size: 0.7rem; font-weight: 400; color: var(--text-muted); margin-top: 2px;">—</div>
-                                    </td>
-                                    <td id="refCell_creditSpreads_FR" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Široki (panika)</td>
-                                    <td id="refCell_creditSpreads_ER" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Sužavaju se</td>
-                                    <td id="refCell_creditSpreads_FRec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Tijesni (euforija)</td>
-                                    <td id="refCell_creditSpreads_ERec" style="padding: 0.6rem; text-align: center; color: var(--text-muted); border-radius: 6px; transition: all 0.3s;">Počinju rasti</td>
+                                    <td style="padding: 0.6rem; font-weight: 600; color: var(--text-secondary);">Credit spreads (HY)</td>
+                                    <td class="stovall-cell" data-row="creditSpreads" data-phase="FR">Široki (panika)</td>
+                                    <td class="stovall-cell" data-row="creditSpreads" data-phase="ER">Sužavaju se</td>
+                                    <td class="stovall-cell" data-row="creditSpreads" data-phase="FRec">Tijesni (euforija)</td>
+                                    <td class="stovall-cell" data-row="creditSpreads" data-phase="ERec">Počinju rasti</td>
                                 </tr>
-                                <tr style="border-top: 2px solid var(--border);">
+                                <tr style="border-top: 2px solid var(--border); border-bottom: 1px solid var(--border);">
                                     <td style="padding: 0.6rem; font-weight: 700; color: var(--text-primary);">Vodeći sektori</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-bull); font-weight: 600;">Tech, Discr.</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-neutral); font-weight: 600;">Ind., Mat., Energy</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-bear); font-weight: 600;">Energy, Health</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-blue); font-weight: 600;">Staples, Util., Fin.</td>
+                                    <td class="stovall-cell" data-row="sectors" data-phase="FR" style="font-weight: 600;">Tech, Discr.</td>
+                                    <td class="stovall-cell" data-row="sectors" data-phase="ER" style="font-weight: 600;">Ind., Mat., Energy</td>
+                                    <td class="stovall-cell" data-row="sectors" data-phase="FRec" style="font-weight: 600;">Energy, Health</td>
+                                    <td class="stovall-cell" data-row="sectors" data-phase="ERec" style="font-weight: 600;">Staples, Util., Fin.</td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 0.6rem; font-weight: 700; color: var(--text-primary);">Tržišna faza</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-bull); font-weight: 600;">Market Bottom</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-neutral); font-weight: 600;">Bull Market</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-bear); font-weight: 600;">Market Top</td>
-                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-blue); font-weight: 600;">Bear Market</td>
+                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-bull); font-weight: 600; font-size: 0.75rem;">Market Bottom</td>
+                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-neutral); font-weight: 600; font-size: 0.75rem;">Bull Market</td>
+                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-bear); font-weight: 600; font-size: 0.75rem;">Market Top</td>
+                                    <td style="padding: 0.6rem; text-align: center; color: var(--accent-blue); font-weight: 600; font-size: 0.75rem;">Bear Market</td>
                                 </tr>
                             </tbody>
                         </table>
                         <!-- Table score summary -->
                         <div id="refTableSummary" style="margin-top: 1rem; padding: 0.75rem 1rem; background: var(--bg-elevated); border-radius: 8px; font-size: 0.8rem;">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-                                <span style="color: var(--text-muted);">Glasovi tablice:</span>
+                                <span style="color: var(--text-muted);">Glasovi tablice (ručni):</span>
                                 <div style="display: flex; gap: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">
                                     <span id="refVote_FR" style="color: var(--accent-bull);">FR: 0</span>
                                     <span id="refVote_ER" style="color: var(--accent-neutral);">ER: 0</span>
@@ -2233,6 +2277,36 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Sector Selection for Trail Tracking -->
+                <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); padding: 1.25rem; margin-bottom: 1rem;">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.75rem;">Trenutno vodeći sektori (za praćenje rotacije)</div>
+                    <div id="stovallSectorGrid" style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="technology"><span class="stovall-sector-chip-inner">Tech</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="discretionary"><span class="stovall-sector-chip-inner">Discr.</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="comm_services"><span class="stovall-sector-chip-inner">Comm.</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="industrials"><span class="stovall-sector-chip-inner">Indust.</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="materials"><span class="stovall-sector-chip-inner">Mater.</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="energy"><span class="stovall-sector-chip-inner">Energy</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="health_care"><span class="stovall-sector-chip-inner">Health</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="financials"><span class="stovall-sector-chip-inner">Financ.</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="cons_staples"><span class="stovall-sector-chip-inner">Staples</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="utilities"><span class="stovall-sector-chip-inner">Utilities</span></label>
+                        <label class="stovall-sector-chip"><input type="checkbox" class="stovall-sector-cb" value="real_estate"><span class="stovall-sector-chip-inner">RE</span></label>
+                    </div>
+                    <div id="sectorSelectionCount" style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem;">Odabrano: 0</div>
+                </div>
+
+                <!-- Sector Rotation Trail -->
+                <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); padding: 1.25rem; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">Rotacija sektora kroz vrijeme</div>
+                        <div style="font-size: 0.65rem; color: var(--text-muted); font-style: italic;">Stariji zapisi blijede</div>
+                    </div>
+                    <div id="rotationTrail" style="min-height: 50px;">
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Spremi stanje da pokreneš praćenje rotacije.</div>
                     </div>
                 </div>
             </div>
@@ -4290,21 +4364,6 @@
         // Completely separate from primary allocation calculation
         // =====================================================
         
-        // Sector → Phase mapping: primary = 2 points, secondary = 1 point
-        const SECTOR_PHASE_MAP = {
-            technology:     { primary: 'fullRecession',  secondary: 'earlyRecovery' },
-            discretionary:  { primary: 'fullRecession',  secondary: 'earlyRecovery' },
-            comm_services:  { primary: 'earlyRecovery',  secondary: 'fullRecession' },
-            industrials:    { primary: 'earlyRecovery',  secondary: 'fullRecovery' },
-            materials:      { primary: 'earlyRecovery',  secondary: 'fullRecovery' },
-            energy:         { primary: 'fullRecovery',   secondary: 'earlyRecovery' },
-            health_care:    { primary: 'fullRecovery',   secondary: 'earlyRecession' },
-            financials:     { primary: 'earlyRecession', secondary: 'fullRecovery' },
-            cons_staples:   { primary: 'earlyRecession', secondary: 'fullRecession' },
-            utilities:      { primary: 'earlyRecession', secondary: 'earlyRecession' },
-            real_estate:    { primary: 'earlyRecession', secondary: 'fullRecession' }
-        };
-
         // Phase → Dalio quadrant mapping for cross-reference
         const PHASE_DALIO_MAP = {
             fullRecession:  { dalio: 'Deflation → Reflation', label: 'Full Recession', marketPhase: 'Market Bottom', color: 'var(--accent-bull)', angle: 315 },
@@ -4313,35 +4372,74 @@
             earlyRecession: { dalio: 'Stagflation → Deflation', label: 'Early Recession', marketPhase: 'Bear Market', color: 'var(--accent-blue)', angle: 225 }
         };
 
+        // Stovall table phase key mapping
+        const STOVALL_PHASE_KEY_MAP = { FR: 'fullRecession', ER: 'earlyRecovery', FRec: 'fullRecovery', ERec: 'earlyRecession' };
+
+        // Sector display names
+        const SECTOR_NAMES = {
+            technology: 'Tech', discretionary: 'Discr.', comm_services: 'Comm.',
+            industrials: 'Indust.', materials: 'Mater.', energy: 'Energy',
+            health_care: 'Health', financials: 'Financ.', cons_staples: 'Staples',
+            utilities: 'Utilities', real_estate: 'RE'
+        };
+
         function initSectorRotation() {
-            const checkboxes = document.querySelectorAll('.sector-cb');
-            checkboxes.forEach(cb => {
-                cb.addEventListener('change', () => {
-                    const checked = document.querySelectorAll('.sector-cb:checked');
-                    if (checked.length >= 3) {
-                        checkboxes.forEach(other => {
-                            if (!other.checked) other.disabled = true;
-                        });
-                    } else {
-                        checkboxes.forEach(other => other.disabled = false);
-                    }
-                    document.getElementById('sectorSelectionCount').textContent = `Odabrano: ${checked.length}/3`;
+            // ── Init clickable Stovall table cells ──
+            const cells = document.querySelectorAll('.stovall-cell');
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    const row = cell.dataset.row;
+                    // Deselect all cells in the same row
+                    document.querySelectorAll(`.stovall-cell[data-row="${row}"]`).forEach(c => c.classList.remove('selected'));
+                    // Select this cell
+                    cell.classList.add('selected');
+                    // Save selections and recalculate
+                    saveStovallSelections();
                     updateSectorRotation();
                 });
             });
-            
-            // Load saved selections
+
+            // ── Init sector chips for trail tracking ──
+            const sectorCbs = document.querySelectorAll('.stovall-sector-cb');
+            sectorCbs.forEach(cb => {
+                cb.addEventListener('change', () => {
+                    const checked = document.querySelectorAll('.stovall-sector-cb:checked');
+                    document.getElementById('sectorSelectionCount').textContent = `Odabrano: ${checked.length}`;
+                    saveStovallSelections();
+                    updateSectorRotation();
+                });
+            });
+
+            // ── Load saved selections from localStorage ──
+            loadStovallSelections();
+        }
+
+        function saveStovallSelections() {
+            const selections = {};
+            const rows = ['consumerExp', 'indProduction', 'interestRates', 'yieldCurve', 'inflation', 'creditSpreads', 'sectors'];
+            rows.forEach(row => {
+                const selected = document.querySelector(`.stovall-cell[data-row="${row}"].selected`);
+                if (selected) selections[row] = selected.dataset.phase;
+            });
+            const sectors = Array.from(document.querySelectorAll('.stovall-sector-cb:checked')).map(cb => cb.value);
+            localStorage.setItem('stovallManualSelections', JSON.stringify(selections));
+            localStorage.setItem('stovallLeadingSectors', JSON.stringify(sectors));
+        }
+
+        function loadStovallSelections() {
             try {
-                const saved = JSON.parse(localStorage.getItem('sectorRotationSelections') || '[]');
-                saved.forEach(val => {
-                    const cb = document.querySelector(`.sector-cb[value="${val}"]`);
+                const selections = JSON.parse(localStorage.getItem('stovallManualSelections') || '{}');
+                Object.entries(selections).forEach(([row, phase]) => {
+                    const cell = document.querySelector(`.stovall-cell[data-row="${row}"][data-phase="${phase}"]`);
+                    if (cell) cell.classList.add('selected');
+                });
+                const sectors = JSON.parse(localStorage.getItem('stovallLeadingSectors') || '[]');
+                sectors.forEach(val => {
+                    const cb = document.querySelector(`.stovall-sector-cb[value="${val}"]`);
                     if (cb) cb.checked = true;
                 });
-                const checked = document.querySelectorAll('.sector-cb:checked');
-                if (checked.length >= 3) {
-                    checkboxes.forEach(other => { if (!other.checked) other.disabled = true; });
-                }
-                document.getElementById('sectorSelectionCount').textContent = `Odabrano: ${checked.length}/3`;
+                const checked = document.querySelectorAll('.stovall-sector-cb:checked');
+                document.getElementById('sectorSelectionCount').textContent = `Odabrano: ${checked.length}`;
             } catch(e) {}
         }
 
@@ -4532,9 +4630,6 @@
         }
 
         function updateSectorRotation() {
-            const selected = Array.from(document.querySelectorAll('.sector-cb:checked')).map(cb => cb.value);
-            localStorage.setItem('sectorRotationSelections', JSON.stringify(selected));
-            
             const phases = ['fullRecession', 'earlyRecovery', 'fullRecovery', 'earlyRecession'];
             const phaseDisplayIds = {
                 fullRecession: 'FullRecession',
@@ -4542,54 +4637,38 @@
                 fullRecovery: 'FullRecovery',
                 earlyRecession: 'EarlyRecession'
             };
-            
-            // ── INDICATOR SCORING (always active) ──
+
+            // ── INDICATOR SCORING (50% — automatic) ──
             const indicatorResult = scoreIndicatorsForStovallPhase();
             const indVotes = indicatorResult.votes;
             const indDetails = indicatorResult.details;
             const indTotal = Object.values(indVotes).reduce((a, b) => a + b, 0);
-            
-            // ── SECTOR SCORING (only when sectors selected) ──
-            const sectorVotes = { fullRecession: 0, earlyRecovery: 0, fullRecovery: 0, earlyRecession: 0 };
-            selected.forEach(sector => {
-                const mapping = SECTOR_PHASE_MAP[sector];
-                if (mapping) {
-                    sectorVotes[mapping.primary] += 2;
-                    sectorVotes[mapping.secondary] += 1;
-                }
-            });
-            const sectorTotal = Object.values(sectorVotes).reduce((a, b) => a + b, 0);
-            
-            // ── TABLE SCORING (always active, based on Stovall characteristics) ──
-            const tableVotes = updateReferenceTable();
+
+            // ── MANUAL TABLE SCORING (50% — user selections) ──
+            const tableVotes = readManualTableVotes();
             const tableTotal = Object.values(tableVotes).reduce((a, b) => a + b, 0);
-            
-            // ── BLENDED PROBABILITIES ──
-            // If sectors: 33% indicators + 33% table + 33% sectors
-            // If no sectors: 50% indicators + 50% table
+
+            // Update table vote summary display
+            updateTableVoteSummary(tableVotes, tableTotal);
+
+            // ── BLENDED PROBABILITIES: 50% indicators + 50% manual table ──
             const blendedVotes = {};
-            const hasSectors = selected.length > 0;
-            const indWeight = hasSectors ? 0.34 : 0.50;
-            const tblWeight = hasSectors ? 0.33 : 0.50;
-            const secWeight = hasSectors ? 0.33 : 0.00;
-            
             phases.forEach(p => {
                 const indNorm = indTotal > 0 ? (indVotes[p] / indTotal) * 100 : 25;
                 const tblNorm = tableTotal > 0 ? (tableVotes[p] / tableTotal) * 100 : 25;
-                const secNorm = sectorTotal > 0 ? (sectorVotes[p] / sectorTotal) * 100 : 25;
-                blendedVotes[p] = Math.round(indNorm * indWeight + tblNorm * tblWeight + secNorm * secWeight);
+                blendedVotes[p] = Math.round(indNorm * 0.50 + tblNorm * 0.50);
             });
-            
+
             // Ensure sum = 100
             const blendSum = Object.values(blendedVotes).reduce((a, b) => a + b, 0);
             if (blendSum !== 100) {
                 const dominant = phases.reduce((a, b) => blendedVotes[a] >= blendedVotes[b] ? a : b);
                 blendedVotes[dominant] += (100 - blendSum);
             }
-            
+
             const dominantPhase = phases.reduce((a, b) => blendedVotes[a] > blendedVotes[b] ? a : b);
             const dominantInfo = PHASE_DALIO_MAP[dominantPhase];
-            
+
             // ── UPDATE PROBABILITY BARS ──
             phases.forEach(p => {
                 const suffix = phaseDisplayIds[p];
@@ -4600,18 +4679,18 @@
                 const row = document.getElementById(`rotPhase${suffix}`);
                 if (row) row.classList.toggle('active-phase', p === dominantPhase);
             });
-            
+
             // ── UPDATE WHEEL ──
             const markerAngle = dominantInfo.angle;
             const radians = (markerAngle - 90) * (Math.PI / 180);
             const cx = 150 + 120 * Math.cos(radians);
             const cy = 150 + 120 * Math.sin(radians);
-            
+
             const marker = document.getElementById('rotationMarker');
             const markerGlow = document.getElementById('rotationMarkerGlow');
             if (marker) { marker.setAttribute('cx', cx); marker.setAttribute('cy', cy); }
             if (markerGlow) { markerGlow.setAttribute('cx', cx); markerGlow.setAttribute('cy', cy); }
-            
+
             const arcPaths = {
                 fullRecession: 'M150,30 A120,120 0 0,1 270,150',
                 earlyRecovery: 'M270,150 A120,120 0 0,1 150,270',
@@ -4624,14 +4703,14 @@
                 activeArc.setAttribute('stroke', dominantInfo.color);
                 activeArc.setAttribute('opacity', '0.6');
             }
-            
+
             document.getElementById('rotationCenterPhase').textContent = dominantInfo.label.split(' ')[0];
             document.getElementById('rotationCenterConf').textContent = blendedVotes[dominantPhase] + '%';
             document.getElementById('rotationCenterConf').style.color = dominantInfo.color;
-            
+
             // ── BUILD INDICATOR BREAKDOWN TABLE ──
             let breakdownHTML = `
-                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.75rem;">📊 Bodovanje indikatora (Discipline Funds)</div>
+                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.75rem;">📊 Automatsko bodovanje indikatora (50%)</div>
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
                     <thead>
                         <tr style="border-bottom: 1px solid var(--border);">
@@ -4643,14 +4722,14 @@
                     </thead>
                     <tbody>
             `;
-            
+
             const phaseColors = {
                 'Full Recession': 'var(--accent-bull)',
                 'Early Recovery': 'var(--accent-neutral)',
                 'Full Recovery': 'var(--accent-bear)',
                 'Early Recession': 'var(--accent-blue)'
             };
-            
+
             indDetails.forEach(d => {
                 const color = Object.entries(phaseColors).find(([k]) => d.phase.includes(k.split(' ')[0]))?.[1] || 'var(--text-muted)';
                 breakdownHTML += `
@@ -4663,10 +4742,10 @@
                 `;
             });
             breakdownHTML += '</tbody></table>';
-            
+
             // Indicator-only phase probabilities mini-bars
             breakdownHTML += `<div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border);">
-                <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.5rem;">Samo indikatori:</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.5rem;">Indikatori (automatski):</div>
                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">`;
             phases.forEach(p => {
                 const info = PHASE_DALIO_MAP[p];
@@ -4678,10 +4757,10 @@
                 </div>`;
             });
             breakdownHTML += '</div></div>';
-            
+
             // Table-only phase probabilities mini-bars
             breakdownHTML += `<div style="margin-top: 0.75rem;">
-                <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.5rem;">Stovall tablica (6 redova):</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.5rem;">Stovall tablica (ručni unos, ${tableTotal} glasova):</div>
                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">`;
             phases.forEach(p => {
                 const info = PHASE_DALIO_MAP[p];
@@ -4693,33 +4772,13 @@
                 </div>`;
             });
             breakdownHTML += '</div></div>';
-            
-            if (hasSectors) {
-                breakdownHTML += `<div style="margin-top: 0.75rem;">
-                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.5rem;">Samo sektori (${selected.map(s => s.replace('_', ' ')).join(', ')}):</div>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">`;
-                phases.forEach(p => {
-                    const info = PHASE_DALIO_MAP[p];
-                    const pct = sectorTotal > 0 ? Math.round((sectorVotes[p] / sectorTotal) * 100) : 0;
-                    breakdownHTML += `<div style="flex: 1; min-width: 70px; text-align: center;">
-                        <div style="font-size: 0.65rem; color: ${info.color}; font-weight: 600; margin-bottom: 0.25rem;">${info.label.split(' ')[0]}</div>
-                        <div style="height: 4px; background: var(--bg-elevated); border-radius: 2px; overflow: hidden;"><div style="height: 100%; width: ${pct}%; background: ${info.color}; border-radius: 2px;"></div></div>
-                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">${pct}%</div>
-                    </div>`;
-                });
-                breakdownHTML += '</div></div>';
-                
-                breakdownHTML += `<div style="margin-top: 0.75rem; padding: 0.5rem 0.75rem; background: rgba(59,130,246,0.06); border-radius: 6px; font-size: 0.75rem; color: var(--accent-blue);">
-                    ⚖️ Konačni rezultat: 34% indikatori + 33% Stovall tablica + 33% sektori
-                </div>`;
-            } else {
-                breakdownHTML += `<div style="margin-top: 0.75rem; padding: 0.5rem 0.75rem; background: rgba(100,116,139,0.08); border-radius: 6px; font-size: 0.75rem; color: var(--text-muted);">
-                    ⚖️ Trenutno: 50% indikatori + 50% Stovall tablica. Odaberi 3 sektora za trostruki blend.
-                </div>`;
-            }
-            
+
+            breakdownHTML += `<div style="margin-top: 0.75rem; padding: 0.5rem 0.75rem; background: rgba(59,130,246,0.06); border-radius: 6px; font-size: 0.75rem; color: var(--accent-blue);">
+                ⚖️ Konačni rezultat: <strong>50% automatski indikatori + 50% ručna Stovall tablica</strong>
+            </div>`;
+
             document.getElementById('rotationBreakdown').innerHTML = breakdownHTML;
-            
+
             // ── CROSS-REFERENCE WITH DALIO ──
             const dalioPhase = document.getElementById('cyclePhaseDisplay')?.textContent || '—';
             const dalioQuadrants = {
@@ -4730,10 +4789,10 @@
             };
             const dalioMaxKey = Object.entries(dalioQuadrants).reduce((a, b) => a[1] >= b[1] ? a : b)[0];
             const dalioMaxName = dalioMaxKey.charAt(0).toUpperCase() + dalioMaxKey.slice(1);
-            
+
             const dalioExpected = dominantInfo.dalio.toLowerCase();
             const agrees = dalioExpected.includes(dalioMaxKey);
-            
+
             let crossRefHTML = '';
             if (agrees) {
                 crossRefHTML = `
@@ -4754,11 +4813,11 @@
                         </div>
                     </div>`;
             }
-            
+
             crossRefHTML += `
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.75rem;">
                     <div style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
-                        <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">🔄 Stovall: Ind.${hasSectors ? ' + Tablica + Sektori' : ' + Tablica'}</div>
+                        <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">🔄 Stovall: Ind. + Tablica</div>
                         <div style="font-weight: 700; color: ${dominantInfo.color}; font-size: 0.95rem;">${dominantInfo.label}</div>
                         <div style="font-size: 0.8rem; color: var(--text-secondary);">${dominantInfo.marketPhase}</div>
                         <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem;">→ Dalio: ${dominantInfo.dalio}</div>
@@ -4769,22 +4828,16 @@
                         <div style="font-size: 0.8rem; color: var(--text-secondary);">Dominantan: ${dalioMaxName} (${dalioQuadrants[dalioMaxKey]}%)</div>
                     </div>
                 </div>`;
-            
+
             document.getElementById('rotationCrossRefContent').innerHTML = crossRefHTML;
-            
+
             // ── UPDATE CYCLE POSITION CARD (top of macro tab) ──
-            const stovallLabel = dominantInfo.label;
-            const stovallColor = dominantInfo.color;
-            const stovallMarket = dominantInfo.marketPhase;
-            
-            document.getElementById('cycleStovallPhase').textContent = stovallLabel;
-            document.getElementById('cycleStovallPhase').style.color = stovallColor;
-            document.getElementById('cycleMarketPhase').textContent = stovallMarket;
-            document.getElementById('cycleMarketPhase').style.color = stovallColor;
-            
-            const dalioQuadText = document.getElementById('cyclePhaseDisplay')?.textContent || '—';
+            document.getElementById('cycleStovallPhase').textContent = dominantInfo.label;
+            document.getElementById('cycleStovallPhase').style.color = dominantInfo.color;
+            document.getElementById('cycleMarketPhase').textContent = dominantInfo.marketPhase;
+            document.getElementById('cycleMarketPhase').style.color = dominantInfo.color;
             document.getElementById('cycleDalioQuad').textContent = dalioMaxName;
-            
+
             if (agrees) {
                 document.getElementById('cycleAgreement').textContent = '✅ Potvrda';
                 document.getElementById('cycleAgreement').style.color = 'var(--accent-bull)';
@@ -4792,7 +4845,7 @@
                 document.getElementById('cycleAgreement').textContent = '⚠️ Divergencija';
                 document.getElementById('cycleAgreement').style.color = 'var(--accent-neutral)';
             }
-            
+
             // Active arc on cycle clock based on Stovall phase
             const arcPaths2 = {
                 fullRecession: { d: 'M100,20 A80,80 0 0,1 180,100', c: 'var(--accent-bull)' },
@@ -4806,141 +4859,124 @@
                 cycleArc.setAttribute('d', activeArcData.d);
                 cycleArc.setAttribute('stroke', activeArcData.c);
             }
+
+            // ── UPDATE ROTATION TRAIL ──
+            renderRotationTrail();
         }
 
         // =============================================================
-        // REFERENCE TABLE: Live indicator → Stovall phase highlighting
-        // Maps each row to the phase it currently matches, highlights cell
-        // Returns table votes object for blending
+        // MANUAL TABLE: Read user-selected phases from clickable cells
+        // Each selected cell = 1 vote for that phase
         // =============================================================
-        function updateReferenceTable() {
-            const consConf = parseFloat(inputs.consumerConfidence?.value) || 100;
-            const pmi = parseFloat(inputs.pmiManufacturing?.value) || 50;
-            const treasury10Y = parseFloat(inputs.treasury10Y?.value) || 4.5;
-            const yc = parseFloat(inputs.yieldCurve?.value) || 0;
-            const cpi = parseFloat(inputs.cpiYoY?.value) || 2.7;
-            const leadingInfl = parseFloat(inputs.leadingInflation?.value) || 3.0;
-            const creditHY = parseFloat(inputs.creditHY?.value) || 350;
-            
-            const phaseColors = {
-                FR: 'var(--accent-bull)', ER: 'var(--accent-neutral)',
-                FRec: 'var(--accent-bear)', ERec: 'var(--accent-blue)'
-            };
-            const phaseKeys = ['FR', 'ER', 'FRec', 'ERec'];
-            const phaseMap = { FR: 'fullRecession', ER: 'earlyRecovery', FRec: 'fullRecovery', ERec: 'earlyRecession' };
+        function readManualTableVotes() {
             const tableVotes = { fullRecession: 0, earlyRecovery: 0, fullRecovery: 0, earlyRecession: 0 };
-            
-            function highlightRow(rowId, matchedPhaseKey, currentText) {
-                phaseKeys.forEach(pk => {
-                    const cell = document.getElementById(`refCell_${rowId}_${pk}`);
-                    if (!cell) return;
-                    if (pk === matchedPhaseKey) {
-                        cell.style.background = `color-mix(in srgb, ${phaseColors[pk]} 15%, transparent)`;
-                        cell.style.color = phaseColors[pk];
-                        cell.style.fontWeight = '700';
-                        cell.style.boxShadow = `inset 0 0 0 1.5px ${phaseColors[pk]}`;
-                    } else {
-                        cell.style.background = 'transparent';
-                        cell.style.color = 'var(--text-muted)';
-                        cell.style.fontWeight = '400';
-                        cell.style.boxShadow = 'none';
-                    }
-                });
-                const currentEl = document.getElementById(`refCurrent_${rowId}`);
-                if (currentEl) {
-                    currentEl.textContent = currentText;
-                    currentEl.style.color = phaseColors[matchedPhaseKey];
+            const rows = ['consumerExp', 'indProduction', 'interestRates', 'yieldCurve', 'inflation', 'creditSpreads', 'sectors'];
+            rows.forEach(row => {
+                const selected = document.querySelector(`.stovall-cell[data-row="${row}"].selected`);
+                if (selected) {
+                    const phaseKey = selected.dataset.phase;
+                    const fullPhase = STOVALL_PHASE_KEY_MAP[phaseKey];
+                    if (fullPhase) tableVotes[fullPhase] += 1;
                 }
-                tableVotes[phaseMap[matchedPhaseKey]] += 1;
-            }
-            
-            // ── ROW 1: Potrošačka očekivanja (Consumer Confidence) ──
-            // <70 = naglo padaju (ERec), 70-90 = oporavljaju se (FR), 90-110 = rastu (ER), >110 = padaju/vrh (FRec)
-            let ccPhase, ccText;
-            if (consConf < 70) { ccPhase = 'ERec'; ccText = `Naglo padaju (${Math.round(consConf)})`; }
-            else if (consConf < 90) { ccPhase = 'FR'; ccText = `Oporavljaju se (${Math.round(consConf)})`; }
-            else if (consConf <= 110) { ccPhase = 'ER'; ccText = `Rastu (${Math.round(consConf)})`; }
-            else { ccPhase = 'FRec'; ccText = `Padaju s vrha (${Math.round(consConf)})`; }
-            highlightRow('consumerExp', ccPhase, ccText);
-            
-            // ── ROW 2: Industrijska proizvodnja (PMI proxy) ──
-            // <45 = dno (FR), 45-50 = pada (ERec), 50-55 = raste (ER), >55 = ravna/vrh (FRec)
-            let ipPhase, ipText;
-            if (pmi < 45) { ipPhase = 'FR'; ipText = `Dno (PMI ${pmi.toFixed(1)})`; }
-            else if (pmi < 50) { ipPhase = 'ERec'; ipText = `Pada (PMI ${pmi.toFixed(1)})`; }
-            else if (pmi <= 55) { ipPhase = 'ER'; ipText = `Raste (PMI ${pmi.toFixed(1)})`; }
-            else { ipPhase = 'FRec'; ipText = `Ravna / vrh (PMI ${pmi.toFixed(1)})`; }
-            highlightRow('indProduction', ipPhase, ipText);
-            
-            // ── ROW 3: Kamatne stope (10Y Treasury) ──
-            // <2.5 = dno (ER), 2.5-3.5 = padaju (FR), 3.5-4.5 = brzo rastu (FRec), >4.5 = vrhunac (ERec)
-            let irPhase, irText;
-            if (treasury10Y < 2.5) { irPhase = 'ER'; irText = `Dno (${treasury10Y.toFixed(2)}%)`; }
-            else if (treasury10Y < 3.5) { irPhase = 'FR'; irText = `Padaju (${treasury10Y.toFixed(2)}%)`; }
-            else if (treasury10Y <= 4.5) { irPhase = 'FRec'; irText = `Brzo rastu (${treasury10Y.toFixed(2)}%)`; }
-            else { irPhase = 'ERec'; irText = `Vrhunac (${treasury10Y.toFixed(2)}%)`; }
-            highlightRow('interestRates', irPhase, irText);
-            
-            // ── ROW 4: Yield krivulja ──
-            // <-0.1 = invertirana (ERec), -0.1 to 0.5 = ravna/izravnava se (FRec), 0.5-1.5 = normalna (FR), >1.5 = strma (ER)
-            let ycPhase, ycText;
-            if (yc < -0.1) { ycPhase = 'ERec'; ycText = `Invertirana (${yc.toFixed(2)}%)`; }
-            else if (yc < 0.5) { ycPhase = 'FRec'; ycText = `Izravnava se (${yc.toFixed(2)}%)`; }
-            else if (yc <= 1.5) { ycPhase = 'FR'; ycText = `Normalna (${yc.toFixed(2)}%)`; }
-            else { ycPhase = 'ER'; ycText = `Strma (${yc.toFixed(2)}%)`; }
-            highlightRow('yieldCurve', ycPhase, ycText);
-            
-            // ── ROW 5: Inflacija (CPI + Leading) ──
-            const inflGap = leadingInfl - cpi;
-            let inflPhase, inflText;
-            if (cpi < 2 && inflGap <= 0) { inflPhase = 'FR'; inflText = `Niska i pada (CPI ${cpi.toFixed(1)}%)`; }
-            else if (cpi <= 2.5 && inflGap <= 0.3) { inflPhase = 'ER'; inflText = `Niska / stabilna (CPI ${cpi.toFixed(1)}%)`; }
-            else if (cpi > 4 || (cpi > 3 && inflGap < 0)) { inflPhase = 'ERec'; inflText = `Vrh / stagflacija (CPI ${cpi.toFixed(1)}%)`; }
-            else { inflPhase = 'FRec'; inflText = `Raste (CPI ${cpi.toFixed(1)}%, Lead ${leadingInfl.toFixed(1)}%)`; }
-            highlightRow('inflation', inflPhase, inflText);
-            
-            // ── ROW 6: Credit Spreads ──
-            let csPhase, csText;
-            if (creditHY > 600) { csPhase = 'FR'; csText = `Široki / panika (${creditHY}bp)`; }
-            else if (creditHY > 400) { csPhase = 'ER'; csText = `Sužavaju se (${creditHY}bp)`; }
-            else if (creditHY > 300) { csPhase = 'ERec'; csText = `Počinju rasti (${creditHY}bp)`; }
-            else { csPhase = 'FRec'; csText = `Tijesni / euforija (${creditHY}bp)`; }
-            highlightRow('creditSpreads', csPhase, csText);
-            
-            // ── Update vote summary ──
+            });
+            return tableVotes;
+        }
+
+        function updateTableVoteSummary(tableVotes, tableTotal) {
             document.getElementById('refVote_FR').textContent = `FR: ${tableVotes.fullRecession}`;
             document.getElementById('refVote_ER').textContent = `ER: ${tableVotes.earlyRecovery}`;
             document.getElementById('refVote_FRec').textContent = `FRc: ${tableVotes.fullRecovery}`;
             document.getElementById('refVote_ERec').textContent = `ERc: ${tableVotes.earlyRecession}`;
-            
-            // Dominant phase label
+
             const phases = ['fullRecession', 'earlyRecovery', 'fullRecovery', 'earlyRecession'];
             const phaseLabels = { fullRecession: 'Full Recession', earlyRecovery: 'Early Recovery', fullRecovery: 'Full Recovery', earlyRecession: 'Early Recession' };
-            const dominantTablePhase = phases.reduce((a, b) => tableVotes[a] >= tableVotes[b] ? a : b);
             const dtColor = { fullRecession: 'var(--accent-bull)', earlyRecovery: 'var(--accent-neutral)', fullRecovery: 'var(--accent-bear)', earlyRecession: 'var(--accent-blue)' };
-            const labelEl = document.getElementById('refTablePhaseLabel');
-            if (labelEl) {
-                labelEl.textContent = `Dominantno: ${phaseLabels[dominantTablePhase]} (${tableVotes[dominantTablePhase]}/6)`;
-                labelEl.style.color = dtColor[dominantTablePhase];
-            }
-            
-            // Highlight dominant column header
-            const headerCells = document.querySelectorAll('#stovallRefTable thead th');
-            if (headerCells.length >= 5) {
-                const headerMap = { fullRecession: 1, earlyRecovery: 2, fullRecovery: 3, earlyRecession: 4 };
-                headerCells.forEach((th, i) => {
-                    if (i === 0) return;
-                    th.style.background = 'transparent';
-                    th.style.borderBottom = '1px solid var(--border)';
-                });
-                const domIdx = headerMap[dominantTablePhase];
-                if (headerCells[domIdx]) {
-                    headerCells[domIdx].style.background = `color-mix(in srgb, ${dtColor[dominantTablePhase]} 10%, transparent)`;
-                    headerCells[domIdx].style.borderBottom = `2px solid ${dtColor[dominantTablePhase]}`;
+
+            if (tableTotal > 0) {
+                const dominantTablePhase = phases.reduce((a, b) => tableVotes[a] >= tableVotes[b] ? a : b);
+                const labelEl = document.getElementById('refTablePhaseLabel');
+                if (labelEl) {
+                    labelEl.textContent = `Dominantno: ${phaseLabels[dominantTablePhase]} (${tableVotes[dominantTablePhase]}/${tableTotal})`;
+                    labelEl.style.color = dtColor[dominantTablePhase];
+                }
+
+                // Highlight dominant column header
+                const headerCells = document.querySelectorAll('#stovallRefTable thead th');
+                if (headerCells.length >= 5) {
+                    const headerMap = { fullRecession: 1, earlyRecovery: 2, fullRecovery: 3, earlyRecession: 4 };
+                    headerCells.forEach((th, i) => {
+                        if (i === 0) return;
+                        th.style.background = 'transparent';
+                        th.style.borderBottom = '1px solid var(--border)';
+                    });
+                    const domIdx = headerMap[dominantTablePhase];
+                    if (headerCells[domIdx]) {
+                        headerCells[domIdx].style.background = `color-mix(in srgb, ${dtColor[dominantTablePhase]} 10%, transparent)`;
+                        headerCells[domIdx].style.borderBottom = `2px solid ${dtColor[dominantTablePhase]}`;
+                    }
                 }
             }
-            
-            return tableVotes;
+        }
+
+        // =============================================================
+        // ROTATION TRAIL: Fading history of sector rotation
+        // Shows how sectors rotated over time with market phase
+        // =============================================================
+        function renderRotationTrail() {
+            const history = getHistory();
+            const trailEl = document.getElementById('rotationTrail');
+            if (!trailEl) return;
+
+            // Filter entries that have rotation data
+            const trailEntries = history.filter(h => h.results && (h.results.leadingSectors?.length > 0 || h.results.stovallPhase));
+
+            if (trailEntries.length === 0) {
+                trailEl.innerHTML = '<div style="color: var(--text-muted); font-size: 0.8rem;">Spremi stanje da pokreneš praćenje rotacije.</div>';
+                return;
+            }
+
+            const phaseColorMap = {
+                fullRecession: '#22c55e', earlyRecovery: '#eab308',
+                fullRecovery: '#ef4444', earlyRecession: '#3b82f6',
+                'Full Recession': '#22c55e', 'Early Recovery': '#eab308',
+                'Full Recovery': '#ef4444', 'Early Recession': '#3b82f6'
+            };
+            const phaseSymbolMap = {
+                fullRecession: 'FR', earlyRecovery: 'ER',
+                fullRecovery: 'FRc', earlyRecession: 'ERc',
+                'Full Recession': 'FR', 'Early Recovery': 'ER',
+                'Full Recovery': 'FRc', 'Early Recession': 'ERc'
+            };
+
+            // Show last 12 entries, oldest first
+            const entries = trailEntries.slice(-12);
+            const total = entries.length;
+
+            let html = '<div class="rotation-trail">';
+            entries.forEach((entry, idx) => {
+                const opacity = Math.max(0.25, 0.25 + 0.75 * (idx / (total - 1 || 1)));
+                const sectors = (entry.results.leadingSectors || []).map(s => SECTOR_NAMES[s] || s).join(', ');
+                const phase = entry.results.stovallPhase || entry.results.stovallDominant || 'N/A';
+                const color = phaseColorMap[phase] || '#64748b';
+                const symbol = phaseSymbolMap[phase] || '?';
+                const date = entry.date || new Date(entry.timestamp).toLocaleDateString('hr-HR');
+
+                // Check if phase changed from previous entry
+                const prevPhase = idx > 0 ? (entries[idx-1].results.stovallPhase || entries[idx-1].results.stovallDominant || '') : '';
+                const changed = idx > 0 && phase !== prevPhase;
+                const borderStyle = changed ? `border: 2px solid ${color}; border-radius: 8px; background: rgba(255,255,255,0.02);` : '';
+
+                html += `<div class="trail-entry" style="opacity: ${opacity.toFixed(2)}; ${borderStyle}" title="${date}: ${sectors || 'nema sektora'} (${phase})">
+                    <div class="trail-phase-dot" style="background: ${color};"></div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; color: ${color}; margin-bottom: 0.2rem;">${symbol}</div>
+                    <div class="trail-sectors">${sectors || '—'}</div>
+                    <div class="trail-date">${date}</div>
+                    ${changed ? '<div style="font-size: 0.55rem; color: ' + color + '; font-weight: 700; margin-top: 0.15rem;">ROTACIJA</div>' : ''}
+                </div>`;
+            });
+            html += '</div>';
+
+            trailEl.innerHTML = html;
         }
 
         // =====================================================
@@ -4989,8 +5025,25 @@
             
             snapshot.results.cyclePhase = document.getElementById('cyclePhaseDisplay')?.textContent || 'N/A';
             
-            // Save sector rotation selections
-            snapshot.results.leadingSectors = Array.from(document.querySelectorAll('.sector-cb:checked')).map(cb => cb.value);
+            // Save Stovall manual table selections
+            const stovallSelections = {};
+            const stovallRows = ['consumerExp', 'indProduction', 'interestRates', 'yieldCurve', 'inflation', 'creditSpreads', 'sectors'];
+            stovallRows.forEach(row => {
+                const selected = document.querySelector(`.stovall-cell[data-row="${row}"].selected`);
+                if (selected) stovallSelections[row] = selected.dataset.phase;
+            });
+            snapshot.results.stovallSelections = stovallSelections;
+
+            // Save leading sectors for rotation trail
+            snapshot.results.leadingSectors = Array.from(document.querySelectorAll('.stovall-sector-cb:checked')).map(cb => cb.value);
+
+            // Save dominant Stovall phase for trail
+            const tableVotes = readManualTableVotes();
+            const phases = ['fullRecession', 'earlyRecovery', 'fullRecovery', 'earlyRecession'];
+            const tblTotal = Object.values(tableVotes).reduce((a, b) => a + b, 0);
+            if (tblTotal > 0) {
+                snapshot.results.stovallPhase = phases.reduce((a, b) => tableVotes[a] >= tableVotes[b] ? a : b);
+            }
             
             history.push(snapshot);
             
@@ -5070,6 +5123,9 @@
                 
                 tableBodyEl.innerHTML = rows;
             }
+
+            // Also refresh the rotation trail
+            renderRotationTrail();
         }
 
         // =====================================================
@@ -5078,17 +5134,23 @@
         function exportJSON() {
             const data = {
                 exportDate: new Date().toISOString(),
-                version: '3.2',
+                version: '3.7',
                 inputs: {},
                 history: getHistory()
             };
-            
+
             Object.entries(inputs).forEach(([key, el]) => {
                 if (el && el.value !== undefined) {
                     data.inputs[key] = el.value;
                 }
             });
-            
+
+            // Save Stovall manual selections
+            try {
+                data.stovallSelections = JSON.parse(localStorage.getItem('stovallManualSelections') || '{}');
+                data.stovallSectors = JSON.parse(localStorage.getItem('stovallLeadingSectors') || '[]');
+            } catch(e) {}
+
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -5097,16 +5159,16 @@
             a.click();
             URL.revokeObjectURL(url);
         }
-        
+
         function importJSON(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    
+
                     // Restore inputs
                     if (data.inputs) {
                         Object.entries(data.inputs).forEach(([key, value]) => {
@@ -5115,16 +5177,25 @@
                             }
                         });
                     }
-                    
+
                     // Restore history
                     if (data.history && Array.isArray(data.history)) {
                         localStorage.setItem(HISTORY_KEY, JSON.stringify(data.history));
                     }
-                    
+
+                    // Restore Stovall manual selections
+                    if (data.stovallSelections) {
+                        localStorage.setItem('stovallManualSelections', JSON.stringify(data.stovallSelections));
+                    }
+                    if (data.stovallSectors) {
+                        localStorage.setItem('stovallLeadingSectors', JSON.stringify(data.stovallSectors));
+                    }
+                    loadStovallSelections();
+
                     // Recalculate
                     updateCalculations();
                     renderHistory();
-                    
+
                     alert('✅ Podaci uspješno učitani!');
                 } catch (err) {
                     alert('❌ Greška pri učitavanju datoteke: ' + err.message);
@@ -5178,7 +5249,7 @@
                 </head>
                 <body>
                     <h1>📊 Portfolio Allocator Report</h1>
-                    <p><strong>Datum:</strong> ${date} | <strong>Verzija:</strong> 3.2</p>
+                    <p><strong>Datum:</strong> ${date} | <strong>Verzija:</strong> 3.7</p>
                     
                     <div class="score-box">
                         <div class="label">Composite Fear Score</div>
