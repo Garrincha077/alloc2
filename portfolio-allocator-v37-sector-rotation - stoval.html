@@ -1843,6 +1843,75 @@
                     </div>
                 </div>
 
+                <!-- Leading Indicators -->
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-bull); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">Leading indikatori</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="initialClaims">Initial Jobless Claims (4w avg) [k]:</label>
+                            <input type="number" id="initialClaims" value="220" step="1" min="100" max="1000">
+                            <a href="https://fred.stlouisfed.org/series/IC4WSA" target="_blank" class="data-link">📊 FRED: Initial Claims 4w →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="joltsQuits">JOLTS Quits Rate [%]:</label>
+                            <input type="number" id="joltsQuits" value="2.3" step="0.1" min="0.5" max="5">
+                            <a href="https://fred.stlouisfed.org/series/JTSQUR" target="_blank" class="data-link">📊 FRED: JOLTS Quits Rate →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="buildingPermits">Building Permits MoM [% chg]:</label>
+                            <input type="number" id="buildingPermits" value="0" step="0.5" min="-40" max="40">
+                            <a href="https://fred.stlouisfed.org/series/PERMIT" target="_blank" class="data-link">📊 FRED: Building Permits →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="lei">Conference Board LEI MoM [%]:</label>
+                            <input type="number" id="lei" value="0" step="0.1" min="-5" max="5">
+                            <a href="https://fred.stlouisfed.org/series/USSLIND" target="_blank" class="data-link">📊 FRED: Leading Economic Index →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="ismNewOrdersInv">ISM New Orders - Inventories:</label>
+                            <input type="number" id="ismNewOrdersInv" value="3" step="0.5" min="-30" max="30">
+                            <a href="https://tradingeconomics.com/united-states/ism-manufacturing-new-orders" target="_blank" class="data-link">📊 ISM: New Orders →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="copperGoldRatio">Copper/Gold Ratio (×1000):</label>
+                            <input type="number" id="copperGoldRatio" value="4.5" step="0.1" min="1" max="12">
+                            <a href="https://fred.stlouisfed.org/series/PCOPPUSDM" target="_blank" class="data-link">📊 FRED: Copper Price →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Conditions -->
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-blue); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);">Financijski uvjeti (Dalio / Pozsar)</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="nfci">Chicago Fed NFCI:</label>
+                            <input type="number" id="nfci" value="0" step="0.01" min="-2" max="3">
+                            <a href="https://fred.stlouisfed.org/series/NFCI" target="_blank" class="data-link">📊 FRED: NFCI →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="creditImpulse">Credit Impulse [% GDP]:</label>
+                            <input type="number" id="creditImpulse" value="0.5" step="0.1" min="-8" max="10">
+                            <a href="https://fred.stlouisfed.org/series/TOTBKCR" target="_blank" class="data-link">📊 FRED: Bank Credit →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="m2YoY">M2 Money Supply YoY [%]:</label>
+                            <input type="number" id="m2YoY" value="4" step="0.1" min="-10" max="30">
+                            <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" class="data-link">📊 FRED: M2 →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="fedBSYoY">Fed Balance Sheet YoY [%]:</label>
+                            <input type="number" id="fedBSYoY" value="-5" step="0.5" min="-20" max="100">
+                            <a href="https://fred.stlouisfed.org/series/WALCL" target="_blank" class="data-link">📊 FRED: Fed Total Assets →</a>
+                        </div>
+                        <div class="input-group" style="margin-bottom: 0;">
+                            <label for="tedSpread">TED Spread [bp]:</label>
+                            <input type="number" id="tedSpread" value="25" step="1" min="0" max="500">
+                            <a href="https://fred.stlouisfed.org/series/TEDRATE" target="_blank" class="data-link">📊 FRED: TED Spread →</a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Cycle Position Indicator - Enhanced -->
                 <div id="cyclePositionCard" style="background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated)); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
                     <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
@@ -2048,6 +2117,117 @@
                             </div>
                             <div id="dashConsumerSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Prosječno</div>
                         </div>
+                    </div>
+
+                    <!-- Leading Indicators Dashboard -->
+                    <div style="font-size: 0.8rem; font-weight: 600; color: var(--accent-primary); margin: 1.25rem 0 0.75rem 0; text-transform: uppercase; letter-spacing: 0.05em;">📡 Leading Indicators</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem;">
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Initial Claims (4w)</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashClaimsValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">220K</span>
+                                <span id="dashClaimsTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashClaimsSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Normalno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">JOLTS Quits Rate</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashJoltsValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">2.3%</span>
+                                <span id="dashJoltsTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashJoltsSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Normalno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Building Permits MoM</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashPermitsValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">0%</span>
+                                <span id="dashPermitsTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashPermitsSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Neutralno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">LEI MoM</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashLeiValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">0%</span>
+                                <span id="dashLeiTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashLeiSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Neutralno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">ISM NO - Inventories</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashIsmNoiValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">3.0</span>
+                                <span id="dashIsmNoiTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashIsmNoiSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Neutralno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Copper / Gold Ratio</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashCuAuValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">4.50</span>
+                                <span id="dashCuAuTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashCuAuSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Neutralno</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Financial Conditions Dashboard -->
+                    <div style="font-size: 0.8rem; font-weight: 600; color: var(--accent-primary); margin: 1.25rem 0 0.75rem 0; text-transform: uppercase; letter-spacing: 0.05em;">🏦 Financial Conditions</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem;">
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Chicago Fed NFCI</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashNfciValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">0.00</span>
+                                <span id="dashNfciTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashNfciSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Neutralno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Credit Impulse (% GDP)</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashCreditImpValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">0.5%</span>
+                                <span id="dashCreditImpTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashCreditImpSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Neutralno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">M2 Money Supply YoY</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashM2Value" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">4.0%</span>
+                                <span id="dashM2Trend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashM2Signal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Neutralno</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Fed Balance Sheet YoY</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashFedBSValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">-5.0%</span>
+                                <span id="dashFedBSTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashFedBSSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">QT u tijeku</div>
+                        </div>
+
+                        <div class="indicator-health-card" style="background: var(--bg-elevated); border-radius: 10px; padding: 1rem;">
+                            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">TED Spread (bps)</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span id="dashTedValue" style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;">25</span>
+                                <span id="dashTedTrend" style="font-size: 1.25rem;">→</span>
+                            </div>
+                            <div id="dashTedSignal" style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Normalno</div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -2742,7 +2922,20 @@
             // Macro inputs
             gdpGrowth: document.getElementById('gdpGrowth'),
             pmiManufacturing: document.getElementById('pmiManufacturing'),
-            consumerConfidence: document.getElementById('consumerConfidence')
+            consumerConfidence: document.getElementById('consumerConfidence'),
+            // Leading indicators
+            initialClaims: document.getElementById('initialClaims'),
+            joltsQuits: document.getElementById('joltsQuits'),
+            buildingPermits: document.getElementById('buildingPermits'),
+            lei: document.getElementById('lei'),
+            ismNewOrdersInv: document.getElementById('ismNewOrdersInv'),
+            copperGoldRatio: document.getElementById('copperGoldRatio'),
+            // Financial conditions
+            nfci: document.getElementById('nfci'),
+            creditImpulse: document.getElementById('creditImpulse'),
+            m2YoY: document.getElementById('m2YoY'),
+            fedBSYoY: document.getElementById('fedBSYoY'),
+            tedSpread: document.getElementById('tedSpread')
         };
 
         // Display references
@@ -3215,36 +3408,58 @@
         // =====================================================
         // Identificira makro režim i prilagođava interpretaciju
         function detectRegime(scores, erp, creditSpread, sahmScore) {
+            // Read financial conditions for enhanced detection
+            const nfci = parseFloat(inputs.nfci?.value) || 0;
+            const lei = parseFloat(inputs.lei?.value) || 0;
+            const tedSpread = parseFloat(inputs.tedSpread?.value) || 25;
+            const creditImpulse = parseFloat(inputs.creditImpulse?.value) || 0.5;
+
             // REŽIM 1: Kasni ciklus / Pre-recesija
-            // Karakteristike: Nizak ERP, uski spreadovi, niska nezaposlenost
-            if (erp < 2.5 && creditSpread < 350 && sahmScore < 0.2) {
+            // Enhanced: NFCI tightening, LEI negative, credit impulse slowing
+            const lateCycleSignals = [
+                erp < 2.5,
+                creditSpread < 350,
+                sahmScore < 0.2,
+                nfci > 0.1,
+                lei < 0,
+                creditImpulse < 0
+            ].filter(Boolean).length;
+            if (lateCycleSignals >= 3 && erp < 2.5) {
                 return {
                     name: 'LATE_CYCLE',
-                    description: 'Kasni ciklus - complacency je visoka',
-                    adjustment: -0.08 // Dodatni oprez
+                    description: `Kasni ciklus (${lateCycleSignals}/6 signala) — complacency visoka`,
+                    adjustment: -0.08
                 };
             }
-            
+
             // REŽIM 2: Recesija / Kriza
-            // Karakteristike: Široki spreadovi, Sahm triggered
-            if (creditSpread > 550 || sahmScore >= 0.5) {
+            // Enhanced: TED stress, NFCI spike, credit contraction
+            const recessionSignals = [
+                creditSpread > 550,
+                sahmScore >= 0.5,
+                nfci > 0.5,
+                tedSpread > 50,
+                creditImpulse < -1,
+                lei < -0.5
+            ].filter(Boolean).length;
+            if (recessionSignals >= 2) {
                 return {
                     name: 'RECESSION',
-                    description: 'Recesija/Kriza - kontra prilika',
-                    adjustment: +0.08 // Bonus za hrabrost
+                    description: `Recesija/Kriza (${recessionSignals}/6 signala) — kontra prilika`,
+                    adjustment: +0.08
                 };
             }
-            
+
             // REŽIM 3: Oporavak
-            // Karakteristike: Spreadovi se sužavaju, ERP još visok
-            if (erp > 3.5 && creditSpread > 350 && creditSpread < 550) {
+            // Enhanced: credit impulse turning positive, NFCI loosening
+            if (erp > 3.5 && creditSpread > 350 && creditSpread < 550 && creditImpulse > 0) {
                 return {
                     name: 'RECOVERY',
-                    description: 'Rani oporavak - sweet spot',
+                    description: 'Rani oporavak — sweet spot, kredit raste',
                     adjustment: +0.05
                 };
             }
-            
+
             // REŽIM 4: Normalan
             return {
                 name: 'NORMAL',
@@ -3937,87 +4152,199 @@
             const gdpGrowth = parseFloat(inputs.gdpGrowth?.value) || 2.5;
             const pmi = parseFloat(inputs.pmiManufacturing?.value) || 50;
             const consumerConf = parseFloat(inputs.consumerConfidence?.value) || 100;
+            // Leading indicators
+            const claims = parseFloat(inputs.initialClaims?.value) || 220;
+            const joltsQuits = parseFloat(inputs.joltsQuits?.value) || 2.3;
+            const permits = parseFloat(inputs.buildingPermits?.value) || 0;
+            const lei = parseFloat(inputs.lei?.value) || 0;
+            const ismNOI = parseFloat(inputs.ismNewOrdersInv?.value) || 3;
+            const cuAu = parseFloat(inputs.copperGoldRatio?.value) || 4.5;
+            // Financial conditions
+            const nfci = parseFloat(inputs.nfci?.value) || 0;
+            const creditImpulse = parseFloat(inputs.creditImpulse?.value) || 0.5;
+            const m2 = parseFloat(inputs.m2YoY?.value) || 4;
+            const fedBS = parseFloat(inputs.fedBSYoY?.value) || -5;
+            const tedSpread = parseFloat(inputs.tedSpread?.value) || 25;
+
             const history = getHistory();
             const prevSnapshot = history.length > 0 ? history[history.length - 1] : null;
+
+            // ==========================================
+            // GROWTH SCORE (0-175) — expanded with leading + financial
+            // Rescaled to 0-100 at the end
+            // ==========================================
+            let growthRaw = 0;
+
+            // GDP contribution (0-20)
+            if (gdpGrowth >= 3) growthRaw += 20;
+            else if (gdpGrowth >= 2) growthRaw += 16;
+            else if (gdpGrowth >= 1) growthRaw += 10;
+            else if (gdpGrowth >= 0) growthRaw += 4;
+
+            // PMI contribution (0-18)
+            if (pmi >= 55) growthRaw += 18;
+            else if (pmi >= 52) growthRaw += 14;
+            else if (pmi >= 50) growthRaw += 10;
+            else if (pmi >= 48) growthRaw += 5;
+            else if (pmi >= 45) growthRaw += 2;
+
+            // Unemployment contribution (0-14) - lower is better
+            if (values.unemployment <= 4) growthRaw += 14;
+            else if (values.unemployment <= 5) growthRaw += 11;
+            else if (values.unemployment <= 6) growthRaw += 7;
+            else if (values.unemployment <= 8) growthRaw += 3;
+
+            // Yield curve contribution (0-10)
+            if (values.yieldCurve >= 1.0) growthRaw += 10;
+            else if (values.yieldCurve >= 0.5) growthRaw += 8;
+            else if (values.yieldCurve >= 0) growthRaw += 5;
+            else if (values.yieldCurve >= -0.5) growthRaw += 2;
+
+            // Credit spreads contribution (0-10) - tighter is better
+            if (values.creditHY <= 300) growthRaw += 10;
+            else if (values.creditHY <= 400) growthRaw += 8;
+            else if (values.creditHY <= 500) growthRaw += 4;
+            else if (values.creditHY <= 600) growthRaw += 1;
+
+            // ── LEADING INDICATORS ── (up to 53 points)
+
+            // Initial Claims (0-10) — lower is better, <200k = very strong
+            if (claims <= 200) growthRaw += 10;
+            else if (claims <= 225) growthRaw += 8;
+            else if (claims <= 260) growthRaw += 5;
+            else if (claims <= 300) growthRaw += 2;
+            else growthRaw += 0; // >300k = deteriorating
+
+            // JOLTS Quits Rate (0-8) — higher quits = workers confident = strong
+            if (joltsQuits >= 2.8) growthRaw += 8;
+            else if (joltsQuits >= 2.3) growthRaw += 6;
+            else if (joltsQuits >= 1.8) growthRaw += 3;
+            else growthRaw += 0; // <1.8 = workers afraid to quit
+
+            // Building Permits MoM (0-8) — positive = housing-led growth
+            if (permits >= 5) growthRaw += 8;
+            else if (permits >= 1) growthRaw += 6;
+            else if (permits >= -3) growthRaw += 3;
+            else growthRaw += 0; // deeply negative
+
+            // Conference Board LEI MoM (0-10) — most important composite leading
+            if (lei >= 0.3) growthRaw += 10;
+            else if (lei >= 0) growthRaw += 7;
+            else if (lei >= -0.3) growthRaw += 3;
+            else growthRaw += 0; // <-0.3 = strong recession signal
+
+            // ISM New Orders - Inventories (0-10) — >0 = expansion ahead
+            if (ismNOI >= 8) growthRaw += 10;
+            else if (ismNOI >= 3) growthRaw += 8;
+            else if (ismNOI >= 0) growthRaw += 5;
+            else if (ismNOI >= -5) growthRaw += 2;
+            else growthRaw += 0;
+
+            // Copper/Gold Ratio (0-7) — higher = risk-on / global growth
+            if (cuAu >= 6) growthRaw += 7;
+            else if (cuAu >= 4.5) growthRaw += 5;
+            else if (cuAu >= 3.5) growthRaw += 3;
+            else growthRaw += 0; // low ratio = risk-off
+
+            // ── FINANCIAL CONDITIONS ── (up to 40 points)
+
+            // NFCI (0-10) — negative = loose conditions (good for growth)
+            if (nfci <= -0.5) growthRaw += 10;
+            else if (nfci <= -0.2) growthRaw += 8;
+            else if (nfci <= 0.1) growthRaw += 5;
+            else if (nfci <= 0.5) growthRaw += 2;
+            else growthRaw += 0; // >0.5 = very tight
+
+            // Credit Impulse (0-10) — positive = credit expanding
+            if (creditImpulse >= 2) growthRaw += 10;
+            else if (creditImpulse >= 0.5) growthRaw += 7;
+            else if (creditImpulse >= 0) growthRaw += 4;
+            else if (creditImpulse >= -1) growthRaw += 1;
+            else growthRaw += 0; // deeply negative = credit contraction
+
+            // M2 Money Supply (0-7) — moderate growth = good
+            if (m2 >= 8) growthRaw += 7;
+            else if (m2 >= 4) growthRaw += 6;
+            else if (m2 >= 1) growthRaw += 3;
+            else growthRaw += 0; // negative M2 = monetary contraction
+
+            // Fed Balance Sheet (0-7) — QE = positive, QT = drag
+            if (fedBS >= 10) growthRaw += 7;
+            else if (fedBS >= 0) growthRaw += 5;
+            else if (fedBS >= -5) growthRaw += 2;
+            else growthRaw += 0; // aggressive QT
+
+            // TED Spread (0-6) — low = calm interbank, high = stress
+            if (tedSpread <= 20) growthRaw += 6;
+            else if (tedSpread <= 35) growthRaw += 4;
+            else if (tedSpread <= 50) growthRaw += 2;
+            else growthRaw += 0; // >50bp = stress
+
+            // Rescale to 0-100
+            const growthMaxPoints = 175;
+            const growthScore = Math.min(100, Math.round((growthRaw / growthMaxPoints) * 100));
             
             // ==========================================
-            // GROWTH SCORE (0-100) - Dalio: "Is the economy growing?"
+            // INFLATION SCORE (0-130) — expanded with monetary signals
+            // Rescaled to 0-100 at the end
             // ==========================================
-            // GDP (0-25), PMI (0-25), Unemployment inv (0-20), Yield Curve (0-15), Credit Spreads inv (0-15)
-            let growthScore = 0;
-            
-            // GDP contribution (0-25)
-            if (gdpGrowth >= 3) growthScore += 25;
-            else if (gdpGrowth >= 2) growthScore += 20;
-            else if (gdpGrowth >= 1) growthScore += 12;
-            else if (gdpGrowth >= 0) growthScore += 5;
-            else growthScore += 0;
-            
-            // PMI contribution (0-25) - above 50 = expansion, below 50 = contraction
-            if (pmi >= 55) growthScore += 25;
-            else if (pmi >= 52) growthScore += 20;
-            else if (pmi >= 50) growthScore += 15;
-            else if (pmi >= 48) growthScore += 8;
-            else if (pmi >= 45) growthScore += 3;
-            else growthScore += 0;
-            
-            // Unemployment contribution (0-20) - lower is better
-            if (values.unemployment <= 4) growthScore += 20;
-            else if (values.unemployment <= 5) growthScore += 15;
-            else if (values.unemployment <= 6) growthScore += 10;
-            else if (values.unemployment <= 8) growthScore += 4;
-            else growthScore += 0;
-            
-            // Yield curve contribution (0-15) - positive is better
-            if (values.yieldCurve >= 1.0) growthScore += 15;
-            else if (values.yieldCurve >= 0.5) growthScore += 12;
-            else if (values.yieldCurve >= 0) growthScore += 8;
-            else if (values.yieldCurve >= -0.5) growthScore += 3;
-            else growthScore += 0;
-            
-            // Credit spreads contribution (0-15) - tighter is better for growth
-            if (values.creditHY <= 300) growthScore += 15;
-            else if (values.creditHY <= 400) growthScore += 12;
-            else if (values.creditHY <= 500) growthScore += 6;
-            else if (values.creditHY <= 600) growthScore += 2;
-            else growthScore += 0;
-            
-            // ==========================================
-            // INFLATION SCORE (0-100) - Dalio: "Is inflation rising?"
-            // ==========================================
-            // CPI (0-35), Leading Inflation (0-35), Consumer Confidence inv (0-15), PMI Prices (proxy: PMI>53 often correlates) (0-15)
-            let inflationScore = 0;
-            
-            // CPI contribution (0-35)
-            if (values.cpiYoY >= 6) inflationScore += 35;
-            else if (values.cpiYoY >= 5) inflationScore += 30;
-            else if (values.cpiYoY >= 4) inflationScore += 25;
-            else if (values.cpiYoY >= 3) inflationScore += 18;
-            else if (values.cpiYoY >= 2.5) inflationScore += 10;
-            else if (values.cpiYoY >= 2) inflationScore += 5;
-            else inflationScore += 0;
-            
-            // Leading inflation contribution (0-35)
-            if (values.leadingInflation >= 5) inflationScore += 35;
-            else if (values.leadingInflation >= 4) inflationScore += 28;
-            else if (values.leadingInflation >= 3) inflationScore += 18;
-            else if (values.leadingInflation >= 2.5) inflationScore += 10;
-            else if (values.leadingInflation >= 2) inflationScore += 5;
-            else inflationScore += 0;
-            
-            // Consumer Confidence as inflation proxy (0-15)
-            // Very high confidence can signal overheating / demand-pull inflation
-            if (consumerConf >= 120) inflationScore += 15;
-            else if (consumerConf >= 110) inflationScore += 10;
-            else if (consumerConf >= 100) inflationScore += 5;
-            else inflationScore += 0;
-            
-            // PMI as supply-side inflation proxy (0-15)
-            // High PMI often correlates with price pressures
-            if (pmi >= 58) inflationScore += 15;
-            else if (pmi >= 55) inflationScore += 10;
-            else if (pmi >= 52) inflationScore += 5;
-            else inflationScore += 0;
+            let inflRaw = 0;
+
+            // CPI contribution (0-30)
+            if (values.cpiYoY >= 6) inflRaw += 30;
+            else if (values.cpiYoY >= 5) inflRaw += 26;
+            else if (values.cpiYoY >= 4) inflRaw += 22;
+            else if (values.cpiYoY >= 3) inflRaw += 15;
+            else if (values.cpiYoY >= 2.5) inflRaw += 8;
+            else if (values.cpiYoY >= 2) inflRaw += 4;
+
+            // Leading inflation contribution (0-30)
+            if (values.leadingInflation >= 5) inflRaw += 30;
+            else if (values.leadingInflation >= 4) inflRaw += 24;
+            else if (values.leadingInflation >= 3) inflRaw += 16;
+            else if (values.leadingInflation >= 2.5) inflRaw += 8;
+            else if (values.leadingInflation >= 2) inflRaw += 4;
+
+            // Consumer Confidence as demand-pull inflation proxy (0-12)
+            if (consumerConf >= 120) inflRaw += 12;
+            else if (consumerConf >= 110) inflRaw += 8;
+            else if (consumerConf >= 100) inflRaw += 4;
+
+            // PMI as supply-side inflation proxy (0-12)
+            if (pmi >= 58) inflRaw += 12;
+            else if (pmi >= 55) inflRaw += 8;
+            else if (pmi >= 52) inflRaw += 4;
+
+            // ── MONETARY / FINANCIAL CONDITIONS → INFLATION ──
+
+            // M2 Money Supply (0-16) — excessive M2 = future inflation (Friedman: "always monetary")
+            if (m2 >= 15) inflRaw += 16;
+            else if (m2 >= 10) inflRaw += 12;
+            else if (m2 >= 7) inflRaw += 8;
+            else if (m2 >= 4) inflRaw += 4;
+            else inflRaw += 0; // <4% or negative = deflationary
+
+            // Fed Balance Sheet expansion (0-12) — QE = inflationary pressure
+            if (fedBS >= 20) inflRaw += 12;
+            else if (fedBS >= 10) inflRaw += 8;
+            else if (fedBS >= 0) inflRaw += 4;
+            else inflRaw += 0; // QT = deflationary
+
+            // Copper/Gold Ratio as commodity inflation signal (0-8)
+            if (cuAu >= 7) inflRaw += 8;
+            else if (cuAu >= 5.5) inflRaw += 5;
+            else if (cuAu >= 4) inflRaw += 2;
+            else inflRaw += 0; // low = no commodity pressure
+
+            // NFCI loose conditions (0-10) — very loose = enables inflation
+            if (nfci <= -0.6) inflRaw += 10;
+            else if (nfci <= -0.3) inflRaw += 6;
+            else if (nfci <= 0) inflRaw += 3;
+            else inflRaw += 0; // tight conditions suppress inflation
+
+            // Rescale to 0-100
+            const inflMaxPoints = 130;
+            const inflationScore = Math.min(100, Math.round((inflRaw / inflMaxPoints) * 100));
             
             // Determine quadrant probabilities
             const growthHigh = growthScore >= 50;
@@ -4086,41 +4413,50 @@
                 }
             });
             
-            // Determine cycle phase based on multiple indicators
+            // Determine cycle phase — enhanced with leading + financial conditions
             let cyclePhase, cycleDesc, needleAngle;
             const yieldInverted = values.yieldCurve < 0;
             const spreadsWide = values.creditHY > 500;
             const unempRising = values.sahmScore > 0.3;
             const pmiContracting = pmi < 50;
             const consumerWeak = consumerConf < 80;
-            
-            if (spreadsWide && (unempRising || pmiContracting) && consumerWeak) {
+            // Leading signals
+            const claimsRising = claims > 280;
+            const leiNegative = lei < -0.2;
+            const ismNOIweak = ismNOI < 0;
+            // Financial stress
+            const nfciTight = nfci > 0.3;
+            const creditContracting = creditImpulse < -0.5;
+            const tedStress = tedSpread > 50;
+            const financialStress = nfciTight || tedStress || creditContracting;
+
+            if (spreadsWide && (unempRising || pmiContracting) && (consumerWeak || claimsRising)) {
                 cyclePhase = 'LATE CONTRACTION';
-                cycleDesc = 'Recesija. Spreadovi široki, PMI u kontrakciji, potrošači pesimistični. Kupuj!';
+                cycleDesc = 'Recesija. Spreadovi široki, PMI u kontrakciji, claims rastu. Kupuj!';
                 needleAngle = 225;
-            } else if (spreadsWide && (unempRising || pmiContracting)) {
+            } else if ((spreadsWide || financialStress) && (unempRising || pmiContracting || leiNegative)) {
                 cyclePhase = 'EARLY CONTRACTION';
-                cycleDesc = 'Usporavanje prelazi u kontrakciju. PMI pada, spreadovi se šire.';
+                cycleDesc = 'Usporavanje → kontrakcija. LEI negativan, fin. uvjeti se pogoršavaju.';
                 needleAngle = 190;
-            } else if (yieldInverted && !spreadsWide && pmi > 50) {
+            } else if (yieldInverted && !spreadsWide && pmi > 50 && (nfciTight || leiNegative || ismNOIweak)) {
                 cyclePhase = 'LATE EXPANSION';
-                cycleDesc = 'Kasna ekspanzija. Krivulja invertirana, ali PMI još zdrav. Fed zateže. Oprez!';
+                cycleDesc = 'Kasna ekspanzija. Krivulja invertirana, LEI upozorava, NFCI zateže. Oprez!';
                 needleAngle = 135;
-            } else if (growthScore > 60 && inflationScore < 30 && pmi > 52) {
+            } else if (growthScore > 60 && inflationScore < 30 && pmi > 52 && lei >= 0 && creditImpulse > 0) {
                 cyclePhase = 'EARLY EXPANSION';
-                cycleDesc = 'Rana ekspanzija. Rast zdrav, inflacija niska, PMI raste. Optimalno za rizik.';
+                cycleDesc = 'Rana ekspanzija. Rast zdrav, LEI pozitivan, kredit raste. Optimalno za rizik.';
                 needleAngle = 45;
             } else if (growthScore > 50 && inflationScore > 40 && consumerConf > 100) {
                 cyclePhase = 'MID EXPANSION';
                 cycleDesc = 'Sredina ciklusa. Rast i inflacija rastu, potrošači optimistični. Prati Fed.';
                 needleAngle = 90;
-            } else if (growthScore < 40 && inflationScore < 30 && pmiContracting) {
+            } else if (growthScore < 40 && inflationScore < 30 && pmiContracting && fedBS >= 0) {
                 cyclePhase = 'EARLY RECOVERY';
-                cycleDesc = 'Početak oporavka. Rast nizak, PMI dno, inflacija pada. Fed poticajan.';
+                cycleDesc = 'Početak oporavka. PMI dno, inflacija pada, Fed poticajan (QE/stabilizacija).';
                 needleAngle = 315;
             } else {
                 cyclePhase = 'TRANSITION';
-                cycleDesc = 'Prijelazna faza. Miješani signali. Čekaj potvrdu trenda.';
+                cycleDesc = 'Prijelazna faza. Miješani signali. Čekaj potvrdu iz LEI i NFCI.';
                 needleAngle = 0;
             }
             
@@ -4302,60 +4638,344 @@
             else confSignal = { text: 'Kriza povjerenja', color: 'var(--accent-bear)' };
             document.getElementById('dashConsumerSignal').textContent = confSignal.text;
             document.getElementById('dashConsumerSignal').style.color = confSignal.color;
+
+            // ── NEW: Leading Indicators Dashboard ──
+            const claims = parseFloat(inputs.initialClaims?.value) || 220;
+            const joltsQ = parseFloat(inputs.joltsQuits?.value) || 2.3;
+            const permitsV = parseFloat(inputs.buildingPermits?.value) || 0;
+            const leiV = parseFloat(inputs.lei?.value) || 0;
+            const ismNOIv = parseFloat(inputs.ismNewOrdersInv?.value) || 3;
+            const cuAuV = parseFloat(inputs.copperGoldRatio?.value) || 4.5;
+
+            // Initial Claims
+            const claimsTrend = getTrend(claims, parseFloat(prev.initialClaims), true);
+            const el_clV = document.getElementById('dashClaimsValue');
+            if (el_clV) {
+                el_clV.textContent = Math.round(claims) + 'k';
+                document.getElementById('dashClaimsTrend').textContent = claimsTrend.arrow;
+                let clSig;
+                if (claims <= 200) clSig = { text: 'Vrlo jak tržište', color: 'var(--accent-bull)' };
+                else if (claims <= 240) clSig = { text: 'Zdrav', color: 'var(--accent-bull)' };
+                else if (claims <= 280) clSig = { text: 'Slabi', color: 'var(--accent-neutral)' };
+                else clSig = { text: 'Pogoršava se', color: 'var(--accent-bear)' };
+                document.getElementById('dashClaimsSignal').textContent = clSig.text;
+                document.getElementById('dashClaimsSignal').style.color = clSig.color;
+            }
+
+            // JOLTS Quits
+            const jTrend = getTrend(joltsQ, parseFloat(prev.joltsQuits));
+            const el_jV = document.getElementById('dashJoltsValue');
+            if (el_jV) {
+                el_jV.textContent = joltsQ.toFixed(1) + '%';
+                document.getElementById('dashJoltsTrend').textContent = jTrend.arrow;
+                let jSig;
+                if (joltsQ >= 2.8) jSig = { text: 'Radnici sigurni', color: 'var(--accent-bull)' };
+                else if (joltsQ >= 2.0) jSig = { text: 'Normalno', color: 'var(--text-secondary)' };
+                else jSig = { text: 'Strah od otkaza', color: 'var(--accent-bear)' };
+                document.getElementById('dashJoltsSignal').textContent = jSig.text;
+                document.getElementById('dashJoltsSignal').style.color = jSig.color;
+            }
+
+            // Building Permits
+            const pTrend = getTrend(permitsV, parseFloat(prev.buildingPermits));
+            const el_pV = document.getElementById('dashPermitsValue');
+            if (el_pV) {
+                el_pV.textContent = (permitsV >= 0 ? '+' : '') + permitsV.toFixed(1) + '%';
+                document.getElementById('dashPermitsTrend').textContent = pTrend.arrow;
+                let pSig;
+                if (permitsV >= 3) pSig = { text: 'Ekspanzija', color: 'var(--accent-bull)' };
+                else if (permitsV >= -2) pSig = { text: 'Stabilan', color: 'var(--text-secondary)' };
+                else pSig = { text: 'Pad', color: 'var(--accent-bear)' };
+                document.getElementById('dashPermitsSignal').textContent = pSig.text;
+                document.getElementById('dashPermitsSignal').style.color = pSig.color;
+            }
+
+            // LEI
+            const lTrend = getTrend(leiV, parseFloat(prev.lei));
+            const el_lV = document.getElementById('dashLeiValue');
+            if (el_lV) {
+                el_lV.textContent = (leiV >= 0 ? '+' : '') + leiV.toFixed(1) + '%';
+                document.getElementById('dashLeiTrend').textContent = lTrend.arrow;
+                let lSig;
+                if (leiV >= 0.3) lSig = { text: 'Ekspanzija', color: 'var(--accent-bull)' };
+                else if (leiV >= 0) lSig = { text: 'Neutralan', color: 'var(--text-secondary)' };
+                else if (leiV >= -0.3) lSig = { text: 'Upozorenje', color: 'var(--accent-neutral)' };
+                else lSig = { text: 'Recesijski signal!', color: 'var(--accent-bear)' };
+                document.getElementById('dashLeiSignal').textContent = lSig.text;
+                document.getElementById('dashLeiSignal').style.color = lSig.color;
+            }
+
+            // ISM New Orders - Inventories
+            const noiTrend = getTrend(ismNOIv, parseFloat(prev.ismNewOrdersInv));
+            const el_nV = document.getElementById('dashIsmNoiValue');
+            if (el_nV) {
+                el_nV.textContent = (ismNOIv >= 0 ? '+' : '') + ismNOIv.toFixed(1);
+                document.getElementById('dashIsmNoiTrend').textContent = noiTrend.arrow;
+                let nSig;
+                if (ismNOIv >= 5) nSig = { text: 'Snažna potražnja', color: 'var(--accent-bull)' };
+                else if (ismNOIv >= 0) nSig = { text: 'Pozitivan', color: 'var(--accent-bull)' };
+                else nSig = { text: 'Kontrakcija', color: 'var(--accent-bear)' };
+                document.getElementById('dashIsmNoiSignal').textContent = nSig.text;
+                document.getElementById('dashIsmNoiSignal').style.color = nSig.color;
+            }
+
+            // Copper/Gold
+            const cgTrend = getTrend(cuAuV, parseFloat(prev.copperGoldRatio));
+            const el_cgV = document.getElementById('dashCuAuValue');
+            if (el_cgV) {
+                el_cgV.textContent = cuAuV.toFixed(1);
+                document.getElementById('dashCuAuTrend').textContent = cgTrend.arrow;
+                let cgSig;
+                if (cuAuV >= 6) cgSig = { text: 'Risk-on', color: 'var(--accent-bull)' };
+                else if (cuAuV >= 4) cgSig = { text: 'Neutralan', color: 'var(--text-secondary)' };
+                else cgSig = { text: 'Risk-off', color: 'var(--accent-bear)' };
+                document.getElementById('dashCuAuSignal').textContent = cgSig.text;
+                document.getElementById('dashCuAuSignal').style.color = cgSig.color;
+            }
+
+            // ── NEW: Financial Conditions Dashboard ──
+            const nfciV = parseFloat(inputs.nfci?.value) || 0;
+            const ciV = parseFloat(inputs.creditImpulse?.value) || 0.5;
+            const m2V = parseFloat(inputs.m2YoY?.value) || 4;
+            const fedBSv = parseFloat(inputs.fedBSYoY?.value) || -5;
+            const tedV = parseFloat(inputs.tedSpread?.value) || 25;
+
+            // NFCI
+            const nfTrend = getTrend(nfciV, parseFloat(prev.nfci), true);
+            const el_nfV = document.getElementById('dashNfciValue');
+            if (el_nfV) {
+                el_nfV.textContent = (nfciV >= 0 ? '+' : '') + nfciV.toFixed(2);
+                document.getElementById('dashNfciTrend').textContent = nfTrend.arrow;
+                let nfSig;
+                if (nfciV > 0.5) nfSig = { text: 'Stres!', color: 'var(--accent-bear)' };
+                else if (nfciV > 0) nfSig = { text: 'Zateže', color: 'var(--accent-neutral)' };
+                else if (nfciV > -0.5) nfSig = { text: 'Labavo', color: 'var(--accent-bull)' };
+                else nfSig = { text: 'Vrlo labavo', color: 'var(--accent-bull)' };
+                document.getElementById('dashNfciSignal').textContent = nfSig.text;
+                document.getElementById('dashNfciSignal').style.color = nfSig.color;
+            }
+
+            // Credit Impulse
+            const ciTrend = getTrend(ciV, parseFloat(prev.creditImpulse));
+            const el_ciV = document.getElementById('dashCreditImpValue');
+            if (el_ciV) {
+                el_ciV.textContent = (ciV >= 0 ? '+' : '') + ciV.toFixed(1) + '%';
+                document.getElementById('dashCreditImpTrend').textContent = ciTrend.arrow;
+                let ciSig;
+                if (ciV >= 2) ciSig = { text: 'Snažan kredit', color: 'var(--accent-bull)' };
+                else if (ciV >= 0) ciSig = { text: 'Pozitivan', color: 'var(--accent-bull)' };
+                else if (ciV >= -1) ciSig = { text: 'Usporava', color: 'var(--accent-neutral)' };
+                else ciSig = { text: 'Kontrakcija!', color: 'var(--accent-bear)' };
+                document.getElementById('dashCreditImpSignal').textContent = ciSig.text;
+                document.getElementById('dashCreditImpSignal').style.color = ciSig.color;
+            }
+
+            // M2
+            const m2Trend = getTrend(m2V, parseFloat(prev.m2YoY));
+            const el_m2V = document.getElementById('dashM2Value');
+            if (el_m2V) {
+                el_m2V.textContent = (m2V >= 0 ? '+' : '') + m2V.toFixed(1) + '%';
+                document.getElementById('dashM2Trend').textContent = m2Trend.arrow;
+                let m2Sig;
+                if (m2V >= 10) m2Sig = { text: 'Monetarna eksp.!', color: 'var(--accent-neutral)' };
+                else if (m2V >= 4) m2Sig = { text: 'Normalan', color: 'var(--text-secondary)' };
+                else if (m2V >= 0) m2Sig = { text: 'Usporen', color: 'var(--accent-neutral)' };
+                else m2Sig = { text: 'Kontrakcija!', color: 'var(--accent-bear)' };
+                document.getElementById('dashM2Signal').textContent = m2Sig.text;
+                document.getElementById('dashM2Signal').style.color = m2Sig.color;
+            }
+
+            // Fed Balance Sheet
+            const fbTrend = getTrend(fedBSv, parseFloat(prev.fedBSYoY));
+            const el_fbV = document.getElementById('dashFedBSValue');
+            if (el_fbV) {
+                el_fbV.textContent = (fedBSv >= 0 ? '+' : '') + fedBSv.toFixed(1) + '%';
+                document.getElementById('dashFedBSTrend').textContent = fbTrend.arrow;
+                let fbSig;
+                if (fedBSv >= 10) fbSig = { text: 'QE', color: 'var(--accent-bull)' };
+                else if (fedBSv >= 0) fbSig = { text: 'Stabilan', color: 'var(--text-secondary)' };
+                else if (fedBSv >= -5) fbSig = { text: 'Blagi QT', color: 'var(--accent-neutral)' };
+                else fbSig = { text: 'Agresivni QT', color: 'var(--accent-bear)' };
+                document.getElementById('dashFedBSSignal').textContent = fbSig.text;
+                document.getElementById('dashFedBSSignal').style.color = fbSig.color;
+            }
+
+            // TED Spread
+            const tTrend = getTrend(tedV, parseFloat(prev.tedSpread), true);
+            const el_tV = document.getElementById('dashTedValue');
+            if (el_tV) {
+                el_tV.textContent = Math.round(tedV) + 'bp';
+                document.getElementById('dashTedTrend').textContent = tTrend.arrow;
+                let tSig;
+                if (tedV > 50) tSig = { text: 'Interbank stres!', color: 'var(--accent-bear)' };
+                else if (tedV > 30) tSig = { text: 'Blagi stres', color: 'var(--accent-neutral)' };
+                else tSig = { text: 'Miran', color: 'var(--accent-bull)' };
+                document.getElementById('dashTedSignal').textContent = tSig.text;
+                document.getElementById('dashTedSignal').style.color = tSig.color;
+            }
         }
-        
+
+        // =====================================================
+        // Z-SCORE & MOMENTUM / ACCELERATION ENGINE
+        // Item 5: Methodology improvements
+        // =====================================================
+        const INDICATOR_STATS = {
+            // name: { mean, std } — historical approximations for Z-score
+            yieldCurve:     { mean: 1.0, std: 1.2, unit: '%', label: 'Yield Curve 10Y-2Y', inverted: false },
+            unemployment:   { mean: 5.5, std: 1.5, unit: '%', label: 'Unemployment', inverted: true },
+            creditHY:       { mean: 430, std: 180, unit: 'bp', label: 'Credit Spread HY', inverted: true },
+            cpiYoY:         { mean: 2.8, std: 1.5, unit: '%', label: 'CPI YoY', inverted: true },
+            sentiment:      { mean: 0.45, std: 0.18, unit: '', label: 'Sentiment', inverted: false },
+            gdpGrowth:      { mean: 2.3, std: 1.4, unit: '%', label: 'GDP Growth', inverted: false },
+            pmiManufacturing: { mean: 52, std: 4, unit: '', label: 'PMI', inverted: false },
+            consumerConfidence: { mean: 95, std: 15, unit: '', label: 'Consumer Conf.', inverted: false },
+            initialClaims:  { mean: 250, std: 60, unit: 'k', label: 'Init. Claims', inverted: true },
+            joltsQuits:     { mean: 2.2, std: 0.5, unit: '%', label: 'JOLTS Quits', inverted: false },
+            lei:            { mean: 0.0, std: 0.4, unit: '%', label: 'LEI MoM', inverted: false },
+            ismNewOrdersInv:{ mean: 3, std: 6, unit: '', label: 'ISM NO-Inv', inverted: false },
+            copperGoldRatio:{ mean: 4.5, std: 1.2, unit: '', label: 'Cu/Au', inverted: false },
+            nfci:           { mean: -0.1, std: 0.4, unit: '', label: 'NFCI', inverted: true },
+            creditImpulse:  { mean: 0.5, std: 1.5, unit: '%', label: 'Credit Impulse', inverted: false },
+            m2YoY:          { mean: 6, std: 4, unit: '%', label: 'M2 YoY', inverted: false },
+            fedBSYoY:       { mean: 3, std: 10, unit: '%', label: 'Fed BS YoY', inverted: false },
+            tedSpread:      { mean: 30, std: 20, unit: 'bp', label: 'TED Spread', inverted: true },
+        };
+
+        function calcZScore(value, mean, std) {
+            if (std === 0) return 0;
+            return (value - mean) / std;
+        }
+
         function updateTrendSummary(values, prevSnapshot, compositeScore) {
             const summaryEl = document.getElementById('trendSummaryContent');
             if (!summaryEl) return;
-            
+
+            const history = getHistory();
+
             if (!prevSnapshot) {
                 summaryEl.innerHTML = '<span style="color: var(--text-muted);">Spremi barem 2 zapisa da vidiš trendove između mjerenja.</span>';
                 return;
             }
-            
+
             const prev = prevSnapshot.inputs;
             const prevScore = parseFloat(prevSnapshot.results?.compositeScore) || 0;
             const scoreDelta = compositeScore - prevScore;
-            
-            let trends = [];
-            
-            // Score trend
+
+            let html = '';
+
+            // ── Score trend ──
             if (Math.abs(scoreDelta) > 0.02) {
                 const scoreDir = scoreDelta > 0 ? 'raste' : 'pada';
                 const scoreColor = scoreDelta > 0 ? 'var(--accent-bull)' : 'var(--accent-bear)';
-                trends.push(`<span style="color: ${scoreColor};">📊 Composite Score ${scoreDir} (${scoreDelta > 0 ? '+' : ''}${(scoreDelta * 100).toFixed(1)}%)</span>`);
+                html += `<div style="margin-bottom: 0.75rem;"><span style="color: ${scoreColor}; font-weight: 600;">📊 Composite Score ${scoreDir} (${scoreDelta > 0 ? '+' : ''}${(scoreDelta * 100).toFixed(1)}%)</span></div>`;
             }
-            
-            // Key indicator changes
-            const checkChange = (name, current, previous, unit = '', inverted = false) => {
-                const prev = parseFloat(previous);
-                if (isNaN(prev)) return null;
-                const delta = current - prev;
-                if (Math.abs(delta) < 0.1) return null;
-                
-                const dir = delta > 0 ? '↑' : '↓';
-                const good = inverted ? delta < 0 : delta > 0;
+
+            // ── MOMENTUM / ACCELERATION (2nd derivative) ──
+            // Need at least 2 previous snapshots
+            const prev2 = history.length >= 2 ? history[history.length - 2] : null;
+
+            const indicatorKeys = [
+                { key: 'unemployment', current: values.unemployment, inverted: true, unit: '%' },
+                { key: 'creditHY', current: values.creditHY, inverted: true, unit: 'bp' },
+                { key: 'cpiYoY', current: values.cpiYoY, inverted: true, unit: '%' },
+                { key: 'yieldCurve', current: values.yieldCurve, inverted: false, unit: '%' },
+                { key: 'initialClaims', current: parseFloat(inputs.initialClaims?.value) || 220, inverted: true, unit: 'k' },
+                { key: 'lei', current: parseFloat(inputs.lei?.value) || 0, inverted: false, unit: '%' },
+                { key: 'nfci', current: parseFloat(inputs.nfci?.value) || 0, inverted: true, unit: '' },
+                { key: 'creditImpulse', current: parseFloat(inputs.creditImpulse?.value) || 0.5, inverted: false, unit: '%' },
+            ];
+
+            let momentumRows = [];
+            indicatorKeys.forEach(({ key, current, inverted, unit }) => {
+                const stat = INDICATOR_STATS[key];
+                if (!stat) return;
+                const prevVal = parseFloat(prev[key]);
+                if (isNaN(prevVal)) return;
+
+                const delta1 = current - prevVal; // 1st derivative (change)
+                if (Math.abs(delta1) < 0.05) return; // too small
+
+                // 2nd derivative (acceleration) — needs prev2
+                let accelText = '';
+                if (prev2) {
+                    const prev2Val = parseFloat(prev2.inputs?.[key]);
+                    if (!isNaN(prev2Val)) {
+                        const delta0 = prevVal - prev2Val;
+                        const accel = delta1 - delta0; // acceleration
+                        if (Math.abs(accel) > 0.03) {
+                            const accelDir = Math.abs(delta1) > Math.abs(delta0) ? 'UBRZAVA' : 'USPORAVA';
+                            const accelColor = accelDir === 'UBRZAVA' ? 'var(--accent-neutral)' : 'var(--text-muted)';
+                            accelText = ` <span style="font-size: 0.7rem; color: ${accelColor}; font-weight: 600;">${accelDir}</span>`;
+                        }
+                    }
+                }
+
+                const dir = delta1 > 0 ? '↑' : '↓';
+                const good = inverted ? delta1 < 0 : delta1 > 0;
                 const color = good ? 'var(--accent-bull)' : 'var(--accent-bear)';
-                return `<span style="color: ${color};">${name} ${dir} ${Math.abs(delta).toFixed(1)}${unit}</span>`;
-            };
-            
-            const changes = [
-                checkChange('Unemployment', values.unemployment, prev.unemployment, '%', true),
-                checkChange('Credit Spreads', values.creditHY, prev.creditHY, 'bp', true),
-                checkChange('CPI', values.cpiYoY, prev.cpiYoY, '%', true),
-                checkChange('Yield Curve', values.yieldCurve, prev.yieldCurve, '%'),
-            ].filter(Boolean);
-            
-            if (changes.length > 0) {
-                trends.push('Promjene: ' + changes.join(' · '));
+
+                // Z-score
+                const z = calcZScore(current, stat.mean, stat.std);
+                const zColor = Math.abs(z) > 1.5 ? 'var(--accent-bear)' : Math.abs(z) > 1 ? 'var(--accent-neutral)' : 'var(--text-muted)';
+                const zText = `<span style="font-size: 0.65rem; color: ${zColor}; font-family: 'JetBrains Mono', monospace;">Z:${z >= 0 ? '+' : ''}${z.toFixed(1)}</span>`;
+
+                momentumRows.push(`<span style="color: ${color};">${stat.label} ${dir}${Math.abs(delta1).toFixed(1)}${unit}</span>${accelText} ${zText}`);
+            });
+
+            if (momentumRows.length > 0) {
+                html += `<div style="margin-bottom: 0.75rem;">
+                    <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem;">Momentum & Akceleracija</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; font-size: 0.8rem;">${momentumRows.join(' · ')}</div>
+                </div>`;
             }
-            
-            // Time since last snapshot
+
+            // ── Z-SCORE HEAT MAP ──
+            let zRows = [];
+            const zIndicators = [
+                { key: 'yieldCurve', val: values.yieldCurve },
+                { key: 'unemployment', val: values.unemployment },
+                { key: 'creditHY', val: values.creditHY },
+                { key: 'cpiYoY', val: values.cpiYoY },
+                { key: 'gdpGrowth', val: parseFloat(inputs.gdpGrowth?.value) || 2.5 },
+                { key: 'pmiManufacturing', val: parseFloat(inputs.pmiManufacturing?.value) || 50 },
+                { key: 'initialClaims', val: parseFloat(inputs.initialClaims?.value) || 220 },
+                { key: 'lei', val: parseFloat(inputs.lei?.value) || 0 },
+                { key: 'nfci', val: parseFloat(inputs.nfci?.value) || 0 },
+                { key: 'creditImpulse', val: parseFloat(inputs.creditImpulse?.value) || 0.5 },
+                { key: 'tedSpread', val: parseFloat(inputs.tedSpread?.value) || 25 },
+            ];
+
+            zIndicators.forEach(({ key, val }) => {
+                const stat = INDICATOR_STATS[key];
+                if (!stat) return;
+                const z = calcZScore(val, stat.mean, stat.std);
+                // For inverted indicators, flip the z-score for the color coding
+                const effectiveZ = stat.inverted ? -z : z;
+                let bgColor, textColor;
+                if (effectiveZ > 1.5) { bgColor = 'rgba(34,197,94,0.25)'; textColor = 'var(--accent-bull)'; }
+                else if (effectiveZ > 0.5) { bgColor = 'rgba(34,197,94,0.10)'; textColor = 'var(--accent-bull)'; }
+                else if (effectiveZ > -0.5) { bgColor = 'transparent'; textColor = 'var(--text-muted)'; }
+                else if (effectiveZ > -1.5) { bgColor = 'rgba(239,68,68,0.10)'; textColor = 'var(--accent-bear)'; }
+                else { bgColor = 'rgba(239,68,68,0.25)'; textColor = 'var(--accent-bear)'; }
+
+                zRows.push(`<div style="display: flex; justify-content: space-between; align-items: center; padding: 0.2rem 0.5rem; background: ${bgColor}; border-radius: 4px;">
+                    <span style="font-size: 0.7rem; color: var(--text-secondary);">${stat.label}</span>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: ${textColor}; font-weight: 600;">${z >= 0 ? '+' : ''}${z.toFixed(2)}</span>
+                </div>`);
+            });
+
+            html += `<div style="margin-bottom: 0.75rem;">
+                <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem;">Z-Score (vs hist. prosjek)</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.2rem;">${zRows.join('')}</div>
+                <div style="font-size: 0.6rem; color: var(--text-muted); margin-top: 0.3rem;">Zeleno = povoljno · Crveno = nepovoljno · |Z|>1.5 = ekstrem</div>
+            </div>`;
+
+            // ── Time since last snapshot ──
             const lastDate = new Date(prevSnapshot.timestamp);
             const daysSince = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
-            trends.push(`<span style="color: var(--text-muted);">Zadnji zapis: ${prevSnapshot.date} (prije ${daysSince} dana)</span>`);
-            
-            summaryEl.innerHTML = trends.join('<br>');
+            html += `<span style="color: var(--text-muted); font-size: 0.8rem;">Zadnji zapis: ${prevSnapshot.date} (prije ${daysSince} dana)</span>`;
+
+            summaryEl.innerHTML = html;
         }
 
         // =====================================================
@@ -4625,7 +5245,66 @@
                 votes.fullRecovery += inflWeight * 0.5;
                 details.push({ name: 'Inflacija', phase: 'Prijelaz', reason: `Umjerena (CPI ${cpi.toFixed(1)}%)`, weight: inflWeight });
             }
-            
+
+            // ── 8. CONFERENCE BOARD LEI (weight: 8%) ── LEADING
+            const leiVal = parseFloat(inputs.lei?.value) || 0;
+            const leiWeight = 8;
+            if (leiVal >= 0.3) {
+                votes.earlyRecovery += leiWeight;
+                details.push({ name: 'LEI', phase: 'Early Recovery', reason: `Snažan (+${leiVal.toFixed(1)}%)`, weight: leiWeight });
+            } else if (leiVal >= 0) {
+                votes.earlyRecovery += leiWeight * 0.4;
+                votes.fullRecovery += leiWeight * 0.6;
+                details.push({ name: 'LEI', phase: 'Recovery', reason: `Pozitivan (+${leiVal.toFixed(1)}%)`, weight: leiWeight });
+            } else if (leiVal >= -0.3) {
+                votes.fullRecovery += leiWeight * 0.3;
+                votes.earlyRecession += leiWeight * 0.7;
+                details.push({ name: 'LEI', phase: 'Early Recession', reason: `Blago neg. (${leiVal.toFixed(1)}%)`, weight: leiWeight });
+            } else {
+                votes.fullRecession += leiWeight * 0.4;
+                votes.earlyRecession += leiWeight * 0.6;
+                details.push({ name: 'LEI', phase: 'Recession', reason: `Negativan (${leiVal.toFixed(1)}%)`, weight: leiWeight });
+            }
+
+            // ── 9. NFCI Financial Conditions (weight: 7%) ──
+            const nfciVal = parseFloat(inputs.nfci?.value) || 0;
+            const nfciWeight = 7;
+            if (nfciVal <= -0.5) {
+                votes.fullRecovery += nfciWeight * 0.6;
+                votes.earlyRecovery += nfciWeight * 0.4;
+                details.push({ name: 'NFCI', phase: 'Recovery', reason: `Vrlo labavo (${nfciVal.toFixed(2)})`, weight: nfciWeight });
+            } else if (nfciVal <= 0) {
+                votes.earlyRecovery += nfciWeight * 0.5;
+                votes.fullRecovery += nfciWeight * 0.5;
+                details.push({ name: 'NFCI', phase: 'Recovery', reason: `Labavo (${nfciVal.toFixed(2)})`, weight: nfciWeight });
+            } else if (nfciVal <= 0.5) {
+                votes.earlyRecession += nfciWeight * 0.7;
+                votes.fullRecovery += nfciWeight * 0.3;
+                details.push({ name: 'NFCI', phase: 'Early Recession', reason: `Zateže (${nfciVal.toFixed(2)})`, weight: nfciWeight });
+            } else {
+                votes.fullRecession += nfciWeight * 0.5;
+                votes.earlyRecession += nfciWeight * 0.5;
+                details.push({ name: 'NFCI', phase: 'Recession', reason: `Stres (${nfciVal.toFixed(2)})`, weight: nfciWeight });
+            }
+
+            // ── 10. CREDIT IMPULSE (weight: 5%) ── LEADING
+            const ciVal = parseFloat(inputs.creditImpulse?.value) || 0.5;
+            const ciWeight = 5;
+            if (ciVal >= 2) {
+                votes.earlyRecovery += ciWeight;
+                details.push({ name: 'Credit Impulse', phase: 'Early Recovery', reason: `Snažan (+${ciVal.toFixed(1)}%)`, weight: ciWeight });
+            } else if (ciVal >= 0) {
+                votes.earlyRecovery += ciWeight * 0.4;
+                votes.fullRecovery += ciWeight * 0.6;
+                details.push({ name: 'Credit Impulse', phase: 'Recovery', reason: `Pozitivan (+${ciVal.toFixed(1)}%)`, weight: ciWeight });
+            } else if (ciVal >= -1) {
+                votes.earlyRecession += ciWeight;
+                details.push({ name: 'Credit Impulse', phase: 'Early Recession', reason: `Usporava (${ciVal.toFixed(1)}%)`, weight: ciWeight });
+            } else {
+                votes.fullRecession += ciWeight;
+                details.push({ name: 'Credit Impulse', phase: 'Full Recession', reason: `Kontrakcija (${ciVal.toFixed(1)}%)`, weight: ciWeight });
+            }
+
             return { votes, details };
         }
 
